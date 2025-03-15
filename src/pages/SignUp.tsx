@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Dash: React.FC = () => {
+const SignUp: React.FC = () => {
     return (
         <div>
             This is a simple div.
@@ -8,4 +8,4 @@ const Dash: React.FC = () => {
     );
 }
 
-export default Dash;
+export default SignUp;

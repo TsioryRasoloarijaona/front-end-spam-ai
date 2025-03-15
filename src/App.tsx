@@ -1,19 +1,20 @@
 import './App.css'
-import { Route , Routes } from 'react-router'
-import Home from './components/home'
-import Dash from './components/dash'
-import Nav from './components/nav'
+import {  Route , Routes } from 'react-router'
+import Login from './pages/Login'
+import SignUp from '../src/pages/SignUp'
+
 
 function App() {
 
 
   return (
     <>
-      <Nav />
+    
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dash" element={<Dash />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
       </Routes>
+  
     </>
   )
 }
