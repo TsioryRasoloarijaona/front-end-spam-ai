@@ -5,6 +5,8 @@ import { Label } from "../components/ui/label";
 import { Link } from "react-router";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
+import { FaRegEyeSlash } from "react-icons/fa";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import {
   Select,
   SelectContent,
@@ -52,6 +54,7 @@ const SignUp: React.FC = () => {
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
   const [numNumber, setNumNumber] = useState(false);
+  const [pass, setPass] = useState(false);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPassword(value);
@@ -62,14 +65,14 @@ const SignUp: React.FC = () => {
   return (
     <div className="w-[100vw] h-full grid grid-cols-2">
       <form className="flex flex-col justify-center items-center gap-6 ">
-        <h1 className="font-bold text-xl mb-3">create your account</h1>
+        <h1 className="font-bold text-3xl mb-3">create your account</h1>
         <div className="w-1/2 space-y-1">
           <Label htmlFor="email">
             choose your email adddress<span className="text-red-500">*</span>
           </Label>
           <div className="flex gap-2">
             <Input type="email" id="email" placeholder="email@smail.com" />
-            <Input type="text" id="email" value={"@smail.com"}/>
+            <Input type="text" id="email" value={"@smail.com"} />
           </div>
         </div>
         <div className="w-1/2 space-y-1">
@@ -83,12 +86,26 @@ const SignUp: React.FC = () => {
         </div>
         <div className="w-1/2 space-y-1">
           <Label htmlFor="email">password</Label>
-          <Input
-            type="password"
-            id="email"
-            placeholder="password"
-            onChange={handlePasswordChange}
-          />
+          <div className="relative">
+            <Input
+              type={pass ? "text" : "password"}
+              id="password"
+              placeholder="password"
+              onChange={handlePasswordChange}
+              className="pr-10"
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+              onClick={() => setPass(!pass)}
+            >
+              {pass ? (
+                <MdOutlineRemoveRedEye className="text-lg"/>
+              ) : (
+                <FaRegEyeSlash className="text-lg" />
+              )}
+            </button>
+          </div>
           <div>
             <ul className="text-xs  space-y-1">
               <li

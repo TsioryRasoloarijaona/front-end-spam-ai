@@ -10,7 +10,7 @@ export default function Phone() {
   return (
     <div className="w-[100vw] h-full grid grid-cols-2">
       <div className="flex flex-col justify-center items-center gap-6 ">
-        <h1 className="font-bold text-xl mb-3">
+        <h1 className="font-bold text-4xl mb-3">
           enter the code sent to your phone
         </h1>
         <InputOTP maxLength={4} className="w-full">

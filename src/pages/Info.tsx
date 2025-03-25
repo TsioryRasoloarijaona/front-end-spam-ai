@@ -8,7 +8,7 @@ export default function Info() {
   return (
     <div className="w-[100vw] h-full grid grid-cols-2">
       <div className="flex flex-col justify-center items-center gap-6 ">
-        <h1 className="font-bold text-xl mb-3">
+        <h1 className="font-bold text-3xl mb-3">
           fill your personnal information
         </h1>
         <div className="w-1/2 space-y-1">
