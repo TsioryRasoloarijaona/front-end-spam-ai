@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import Sections from "../../../components/Sections";
+import Sections from "@/components/Sections";
 import ListMenu from "./ListMenu";
 
 export default function Layout() {

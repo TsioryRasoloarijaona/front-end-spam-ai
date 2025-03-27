@@ -1,5 +1,5 @@
-import MessageView from "../../../components/MessageView"
-import email from "../../../interfaces/EmailInterface"
+import MessageView from "@/components/MessageView"
+import email from "@/interfaces/EmailInterface"
 
 export default function InboxView() {
   const mail : email = {
