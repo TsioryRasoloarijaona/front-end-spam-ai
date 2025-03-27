@@ -1,11 +1,10 @@
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import TextEditor from "./textEditor/TextEditor";
-import { Button } from "@/components/ui/button";
+
 import { MessagesSquareIcon } from "lucide-react";
 
 import "react-quill/dist/quill.snow.css";

@@ -5,7 +5,7 @@ import { LuInbox } from "react-icons/lu";
 import { IoSendOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiDraftLine } from "react-icons/ri";
-import { MessagesSquareIcon } from "lucide-react";
+
 import NewMsg from "@/components/NewMsg";
 
 interface menu {
