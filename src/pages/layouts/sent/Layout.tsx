@@ -1,7 +1,3 @@
-
-
 export default function Layout() {
-  return (
-    <div>Layoutsent</div>
-  )
+  return <div>Layoutsent</div>;
 }

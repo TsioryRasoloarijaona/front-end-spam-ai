@@ -50,14 +50,12 @@ function numericNumber(str: string): boolean {
 }
 
 const SignUp: React.FC = () => {
-  const [password, setPassword] = useState("");
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
   const [numNumber, setNumNumber] = useState(false);
   const [pass, setPass] = useState(false);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setPassword(value);
     setStrLength(stringLength(value));
     setCapLetter(capitalLetter(value));
     setNumNumber(numericNumber(value));
@@ -100,7 +98,7 @@ const SignUp: React.FC = () => {
               onClick={() => setPass(!pass)}
             >
               {pass ? (
-                <MdOutlineRemoveRedEye className="text-lg"/>
+                <MdOutlineRemoveRedEye className="text-lg" />
               ) : (
                 <FaRegEyeSlash className="text-lg" />
               )}
