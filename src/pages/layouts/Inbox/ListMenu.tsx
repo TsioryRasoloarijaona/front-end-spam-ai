@@ -1,6 +1,6 @@
 import { useState } from "react";
-import MessageMenu from "../../../components/MessageMenu";
-import email from "../../../interfaces/EmailInterface";
+import MessageMenu from "@/components/MessageMenu";
+import email from "@/interfaces/EmailInterface";
 import { RiInboxFill } from "react-icons/ri";
 
 
