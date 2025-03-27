@@ -1,0 +1,11 @@
+.custom-quill .ql-toolbar {
+    order: 2; /* Déplace la toolbar en bas */
+    border-top: 1px solid #ddd; /* Ajoute une bordure en haut au lieu d'en bas */
+    border-bottom: none; /* Supprime la bordure du bas */
+  }
+  
+  .custom-quill .ql-container {
+    order: 1; /* Met l'éditeur au-dessus */
+    border: none; /* Supprime toutes les bordures */
+  }
+  

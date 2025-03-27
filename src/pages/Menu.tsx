@@ -6,6 +6,7 @@ import { IoSendOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiDraftLine } from "react-icons/ri";
 import { MessagesSquareIcon } from "lucide-react";
+import NewMsg from "@/components/NewMsg";
 
 interface menu {
   link: string;
@@ -33,10 +34,7 @@ const Menu: React.FC = () => {
     <div className="w-full h-full">
       <div className="px-7">
         <div className="mb-6 mt-10">
-          <button className="font-black  bg-[rgb(236,236,240)]  w-full py-2 rounded-sm flex items-center gap-1.5 justify-center ">
-            <MessagesSquareIcon />
-            new message
-          </button>
+          <NewMsg />
         </div>
         <ul className="space-y-3">
           {menuList.map((menu, i) => (
