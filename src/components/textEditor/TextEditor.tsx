@@ -1,7 +1,9 @@
 import ReactQuill from "react-quill";
 import { useState } from "react";
 import "react-quill/dist/quill.snow.css";
-import "./style.css"
+import "./style.css";
+import RecipientInput from "../RecipientInput";
+import { Button } from "../ui/button";
 
 export default function TextEditor() {
   const myColors = [
@@ -19,9 +21,8 @@ export default function TextEditor() {
       ["bold", "italic", "underline"],
       [{ align: ["right", "center", "justify"] }],
       [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "image"],
+      ["link"],
       [{ color: myColors }],
-      [{ background: myColors }],
     ],
   };
 
@@ -47,16 +48,27 @@ export default function TextEditor() {
   };
   return (
     <>
-    <div className="mt-4">
-      <ReactQuill
-        theme="snow"
-        modules={modules}
-        formats={formats}
-        value={code}
-        onChange={handleProcedureContentChange}
-        className="w-full border-none"
-      />
-    </div>
+      <div className="mt-4 space-y-4 w-full">
+        <div className="w-full text-sm">
+          <RecipientInput />
+        </div>
+        <div>
+          <input type="text" placeholder="object" className="border-b border-b-gray-300 p-2 outline-none w-full text-sm" />
+        </div>
+        <div className="w-full relative">
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={code}
+            onChange={handleProcedureContentChange}
+            className="w-full border-none"
+          />
+        </div>
+        <div>
+          <Button>send</Button>
+        </div>
+      </div>
     </>
   );
 }

@@ -31,7 +31,7 @@ export default function Layout() {
           </div>
         </div>
         <div className="flex-grow grid grid-cols-[1fr_5fr]">
-          <div className="h-full border-r border-gray-300 ">
+          <div className="h-full border-r border-gray-300 bg-[#F7F7F7]">
             <Menu />
           </div>
           <div className="h-full">

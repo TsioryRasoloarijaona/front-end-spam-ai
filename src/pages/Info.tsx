@@ -6,8 +6,8 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function Info() {
   return (
-    <div className="w-[100vw] h-full grid grid-cols-2">
-      <div className="flex flex-col justify-center items-center gap-6 ">
+    <div className="w-[100vw] flex justify-center items-center  h-[100vh] bg-[#F7F7F7]">
+      <div className="flex flex-col justify-center items-center gap-6 w-1/2 ">
         <h1 className="font-bold text-3xl mb-3">
           fill your personnal information
         </h1>
@@ -44,13 +44,6 @@ export default function Info() {
             </Link>
           </p>
         </div>
-      </div>
-      <div className=" h-[100vh] flex justify-center items-center">
-        <img
-          src="src/assets/mailbox.png"
-          alt="Description of image"
-          className="w-2/3 h-2/3"
-        />
       </div>
     </div>
   );

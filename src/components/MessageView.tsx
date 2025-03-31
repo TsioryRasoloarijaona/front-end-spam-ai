@@ -22,7 +22,7 @@ export default function MessageView({content} : props ) {
       </div>
       <div className="font-bold ">{content?.object}</div>
       <div>
-        <div className="">{content?.content}</div>
+        <div className="leading-8 text-base">{content?.content}</div>
       </div>
       <div>document1.pdf</div>
     </div>
