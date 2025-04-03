@@ -39,7 +39,7 @@ export default function Info() {
         <div>
           <p>
             already have an account ?{" "}
-            <Link to={"/"} className="underline">
+            <Link to={"/signIn"} className="underline">
               sign in
             </Link>
           </p>

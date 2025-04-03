@@ -103,7 +103,7 @@ const SignUp: React.FC = () => {
                 <FaRegEyeSlash className="text-lg" />
               )}
             </button>
-          </div>
+          </div> 
           <div>
             <ul className="text-xs  space-y-1">
               <li
@@ -141,7 +141,7 @@ const SignUp: React.FC = () => {
         <div>
           <p>
             already have an account ?{" "}
-            <Link to={"/"} className="underline">
+            <Link to={"/signIn"} className="underline">
               sign in
             </Link>
           </p>

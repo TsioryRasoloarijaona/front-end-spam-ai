@@ -8,12 +8,15 @@ import LayoutIbox from "./pages/layouts/Inbox/Layout";
 import LayoutSent from "./pages/layouts/sent/Layout";
 import LayoutSpam from "./pages/layouts/spam/Layout";
 import InboxView from "./pages/layouts/Inbox/InboxView";
-
+import Landing from "./pages/Landing";
+import SignIn from "./pages/SignIn";
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Info />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/info" element={<Info />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/phone" element={<Phone />} />
         <Route path="/dash" element={<Layout />}>
