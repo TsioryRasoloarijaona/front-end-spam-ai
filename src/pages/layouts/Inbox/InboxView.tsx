@@ -3,15 +3,15 @@ import { useOutletContext, useParams } from "react-router";
 import { MessageToSend } from "@/interfaces/dataTypes";
 
 export default function InboxView() {
-  const { id } = useParams<{ id: string }>(); // Récupère l'id depuis les paramètres
-  const { emails } = useOutletContext<{ emails: MessageToSend[] }>(); // Récupère les emails depuis le context
+  const { id } = useParams<{ id: string }>(); 
+  const { allMessages } = useOutletContext<{ allMessages : MessageToSend[] }>(); 
 
  
-  const mail = emails?.find((email) => email.id === id);
+  const mail = allMessages?.find((email) => email.id.toString() === id);
 
   
   if (!mail) {
-    return <p>Email not found</p>;
+    return <p>{id}</p>;
   }
 
   return (

@@ -8,12 +8,17 @@ import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
 import { useWebSocket } from "./webSocketContext";
 
+interface ListMenuProps {
+  menu: React.ReactNode;
+  id : number;
+}
+
 export default function Layout() {
+  const listMenu : ListMenuProps[] = [];
   const [emails, setEmails] = useState<MessageToSend[]>();
-  const {messages} = useWebSocket();
+  const { messages } = useWebSocket();
 
   const token: string = Cookies.get("authToken") || "";
-
 
   const getEmails = async () => {
     try {
@@ -29,27 +34,26 @@ export default function Layout() {
     }
   };
 
-
   useEffect(() => {
     console.log(token);
     getEmails();
   }, []);
 
-const allMessages = [...(emails || []), ...messages];
+  const allMessages = [...(emails || []), ...messages];
 
-
-console.log("All messages:", allMessages);
-
-  let count : number = 0;
-
-  const menu: React.ReactNode[] = [];
-  if (Array.isArray(emails) && emails.length > 0) {
+  if (Array.isArray(allMessages) && allMessages.length > 0) {
     allMessages?.forEach((email) => {
-      email.id = count.toString();
-      count++;
-      menu.push(<MessageMenu body={email} />);
+      listMenu.push({
+        menu : <MessageMenu body={email}/> ,
+        id : email.id
+      });
     });
   }
 
-  return <Sections menu={<ListMenu menu={menu} />} view={<Outlet context={{allMessages}}/>} />;
+  return (
+    <Sections
+      menu={<ListMenu param={listMenu} />}
+      view={<Outlet context={{allMessages}} />}
+    />
+  );
 }

@@ -2,9 +2,14 @@ import { useState } from "react";
 import { RiInboxFill } from "react-icons/ri";
 import { Link } from "react-router";
 
+interface ListMenuProps {
+  menu: React.ReactNode;
+  id : number;
+}
 
-export default function ListMenu({ menu }: { menu: React.ReactNode[] }) {
 
+
+export default function ListMenu({param}: {param: ListMenuProps[]}) {
   const [selected, setSelected] = useState(0);
 
   return (
@@ -16,7 +21,7 @@ export default function ListMenu({ menu }: { menu: React.ReactNode[] }) {
         </div>
       </div>
       <ul>
-        {menu.map((menu, i) => (
+        {param.map((param, i) => (
           <li
             className={`border-b border-gray-200 ${
               selected == i ? "bg-[rgb(236,236,240)]" : ""
@@ -24,7 +29,7 @@ export default function ListMenu({ menu }: { menu: React.ReactNode[] }) {
             key={i}
             onClick={() => setSelected(i)}
           >
-            <Link to={i.toString()}>{menu}</Link>
+            <Link to={param.id.toString()}>{param.menu}</Link>
           </li>
         ))}
       </ul>

@@ -11,7 +11,7 @@ export interface AccountDTO {
 }
 
 export interface MessageToSend {
-    id : string ;
+    id : number ;
     accountDTO : AccountDTO ;
     object : string ;
     body : string ;
