@@ -11,6 +11,7 @@ import { postMethod } from "@/utils/fecthing";
 import { useNavigate } from "react-router";
 import Cookies from 'js-cookie'
 import { useWebSocket } from "./layouts/Inbox/webSocketContext";
+import { toast } from "sonner";
 
 interface loginRequest {
   email: string;
@@ -28,6 +29,7 @@ export default function SignIn() {
   } = useForm<loginRequest>();
 
   const onSubmit: SubmitHandler<loginRequest> = (data) => {
+    
     postMethod<loginRequest>(null, "api/account/signIn", data)
       .then((token) => {
         Cookies.set('authToken' , token , {expires: 1});
@@ -36,7 +38,7 @@ export default function SignIn() {
       })
       .catch((error) => {
         if (error.response) {
-          alert("Invalid email or password");
+          toast.error("Invalid email or password");
         }
       });
   };
