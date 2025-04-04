@@ -2,7 +2,9 @@ import { useState } from "react";
 import { RiInboxFill } from "react-icons/ri";
 import { Link } from "react-router";
 
+
 export default function ListMenu({ menu }: { menu: React.ReactNode[] }) {
+
   const [selected, setSelected] = useState(0);
 
   return (

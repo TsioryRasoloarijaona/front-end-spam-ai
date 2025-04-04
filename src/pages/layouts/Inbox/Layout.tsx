@@ -6,9 +6,12 @@ import { useState, useEffect } from "react";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
-import { connectWebSocket } from "@/utils/websoketService";
+import { useWebSocket } from "./webSocketContext";
+
 export default function Layout() {
   const [emails, setEmails] = useState<MessageToSend[]>();
+  const {messages} = useWebSocket();
+
   const token: string = Cookies.get("authToken") || "";
 
 
@@ -26,27 +29,27 @@ export default function Layout() {
     }
   };
 
- /* const onReceiveMessage = (message: MessageToSend) => {
-    console.log("Message received:", message);
-    setEmails((prevEmails) => [message, ...(prevEmails || [])]);
-  }*/
 
   useEffect(() => {
     console.log(token);
     getEmails();
-    //connectWebSocket(onReceiveMessage, token);
   }, []);
+
+const allMessages = [...(emails || []), ...messages];
+
+
+console.log("All messages:", allMessages);
 
   let count : number = 0;
 
   const menu: React.ReactNode[] = [];
   if (Array.isArray(emails) && emails.length > 0) {
-    emails?.forEach((email) => {
+    allMessages?.forEach((email) => {
       email.id = count.toString();
       count++;
       menu.push(<MessageMenu body={email} />);
     });
   }
 
-  return <Sections menu={<ListMenu menu={menu} />} view={<Outlet context={{emails}}/>} />;
+  return <Sections menu={<ListMenu menu={menu} />} view={<Outlet context={{allMessages}}/>} />;
 }

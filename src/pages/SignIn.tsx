@@ -10,6 +10,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { postMethod } from "@/utils/fecthing";
 import { useNavigate } from "react-router";
 import Cookies from 'js-cookie'
+import { useWebSocket } from "./layouts/Inbox/webSocketContext";
 
 interface loginRequest {
   email: string;
@@ -19,6 +20,7 @@ interface loginRequest {
 export default function SignIn() {
   const navigate = useNavigate();
   const [pass, setPass] = useState(false);
+  const {connectWebSocket} = useWebSocket()
   const {
     control,
     handleSubmit,
@@ -29,6 +31,7 @@ export default function SignIn() {
     postMethod<loginRequest>(null, "api/account/signIn", data)
       .then((token) => {
         Cookies.set('authToken' , token , {expires: 1});
+        connectWebSocket(token?.replace(/"/g, ""))
         navigate("/dash/inbox/2");
       })
       .catch((error) => {
