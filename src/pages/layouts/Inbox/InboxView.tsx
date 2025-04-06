@@ -11,7 +11,7 @@ export default function InboxView() {
 
   
   if (!mail) {
-    return <p>{id}</p>;
+    return <p>select a msg to open</p>;
   }
 
   return (

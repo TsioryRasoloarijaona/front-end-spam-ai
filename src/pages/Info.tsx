@@ -3,37 +3,37 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Info() {
   return (
-    <div className="w-[100vw] flex justify-center items-center  h-[100vh] bg-[#F7F7F7]">
-      <div className="flex flex-col justify-center items-center gap-6 w-1/2 ">
-        <h1 className="font-bold text-3xl mb-3">
-          fill your personnal information
-        </h1>
+    <div className="w-[100vw] h-full grid grid-cols-2">
+      <form className="flex flex-col justify-center items-center gap-6 ">
+        <h1 className="font-bold text-3xl mb-3">create your account</h1>
         <div className="w-1/2 space-y-1">
           <Label htmlFor="email">
-            firstname<span className="text-red-500">*</span>
+            first name<span className="text-red-500">*</span>
           </Label>
-          <Input type="text" id="email" placeholder="firstname" />
-        </div>
-        <div className="w-1/2 space-y-1">
-          <Label htmlFor="email">second name - optionnal</Label>
-          <Input type="text" id="email" placeholder="second name" />
+
+          <Input type="text" id="email" placeholder="email@smail.com" />
         </div>
         <div className="w-1/2 space-y-1">
           <Label htmlFor="email">lastname</Label>
-          <Input type="text" id="email" placeholder="name" />
+          <Input type="text" id="email" placeholder="phone number" />
+        </div>
+        <div className="w-1/2 space-y-1">
+          <Label htmlFor="email">second name</Label>
+          <Input type="text" id="email" placeholder="phone number" />
         </div>
         <div className="w-1/2 space-y-1">
           <Label htmlFor="email">
-            birth date<span className="text-red-500">*</span>
+            date of birth<span className="text-red-500">*</span>
           </Label>
-          <Input type="date" id="email" placeholder="date of birth" />
+          <Input type="date" id="email" placeholder="phone number" />
         </div>
         <div className="w-1/2 mt-3">
           <Button size={"lg"} className="w-full">
-            create account <FaArrowRight />
+            next
           </Button>
         </div>
         <div>
@@ -44,6 +44,9 @@ export default function Info() {
             </Link>
           </p>
         </div>
+      </form>
+      <div className=" h-[100vh] flex justify-center items-center">
+        <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
       </div>
     </div>
   );

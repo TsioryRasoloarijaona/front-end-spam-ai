@@ -5,6 +5,7 @@ import {
   InputOTPSlot,
 } from "../components/ui/input-otp";
 import { Button } from "../components/ui/button";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Phone() {
   return (
@@ -36,11 +37,7 @@ export default function Phone() {
         </div>
       </div>
       <div className=" h-[100vh] flex justify-center items-center">
-        <img
-          src="src/assets/mailbox.png"
-          alt="Description of image"
-          className="w-2/3 h-2/3"
-        />
+      <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
       </div>
     </div>
   );

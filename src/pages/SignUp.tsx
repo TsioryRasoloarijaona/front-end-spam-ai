@@ -7,6 +7,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import {
   Select,
   SelectContent,
@@ -103,7 +104,7 @@ const SignUp: React.FC = () => {
                 <FaRegEyeSlash className="text-lg" />
               )}
             </button>
-          </div> 
+          </div>
           <div>
             <ul className="text-xs  space-y-1">
               <li
@@ -148,11 +149,7 @@ const SignUp: React.FC = () => {
         </div>
       </form>
       <div className=" h-[100vh] flex justify-center items-center">
-        <img
-          src="src/assets/mailbox.png"
-          alt="Description of image"
-          className="w-2/3 h-2/3"
-        />
+        <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
       </div>
     </div>
   );

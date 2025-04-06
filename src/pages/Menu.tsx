@@ -5,6 +5,7 @@ import { LuInbox } from "react-icons/lu";
 import { IoSendOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiDraftLine } from "react-icons/ri";
+import { FaRegFolder } from "react-icons/fa6";
 
 import NewMsg from "@/components/NewMsg";
 
@@ -28,6 +29,13 @@ const Menu: React.FC = () => {
       number: 26,
     },
     { link: "/dash/draft", name: "draft", icon: <RiDraftLine />, number: 37 },
+    {
+      link: "/dash/folder",
+      name: "folder",
+      icon: <FaRegFolder />,
+      number: 0,
+    },
+    { link: "/dash/trash", name: "trash", icon: <RiDeleteBin6Line />, number: null },
   ];
 
   return (
