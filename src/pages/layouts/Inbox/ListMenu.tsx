@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
 
 interface ListMenuProps {
