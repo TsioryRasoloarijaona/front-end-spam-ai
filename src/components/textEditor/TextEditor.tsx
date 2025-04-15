@@ -48,14 +48,14 @@ export default function TextEditor() {
   };
   return (
     <>
-      <div className="mt-4 space-y-4 w-full">
+      <div className="mt-4 space-y-4 w-full h-full">
         <div className="w-full text-sm">
           <RecipientInput />
         </div>
         <div>
           <input type="text" placeholder="object" className="border-b border-b-gray-300 p-2 outline-none w-full text-sm" />
         </div>
-        <div className="w-full relative">
+        <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
           <ReactQuill
             theme="snow"
             modules={modules}

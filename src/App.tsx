@@ -10,6 +10,7 @@ import LayoutSpam from "./pages/layouts/spam/Layout";
 import InboxView from "./pages/layouts/Inbox/InboxView";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
+import Creation from "./pages/Creation";
 import { WebSocketProvider } from "./pages/layouts/Inbox/webSocketContext";
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/info" element={<Info />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/phone" element={<Phone />} />
+          <Route path="/creation" element={<Creation />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dash" element={<Layout />}>
             <Route path="inbox" element={<LayoutIbox />}>

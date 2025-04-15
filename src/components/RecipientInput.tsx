@@ -24,7 +24,7 @@ export default function RecipientInput() {
 
   return (
     <div className="border-b p-2">
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 max-h-[4.5rem] overflow-y-auto">
         {recipients.map((recipient, index) => (
           <div
             key={index}
@@ -46,7 +46,7 @@ export default function RecipientInput() {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Add recipient"
-          className="flex-grow outline-none"
+          className="overflow-x-auto outline-none"
         />
       </div>
     </div>

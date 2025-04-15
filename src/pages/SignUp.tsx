@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { listCountry, country } from "../utils/country";
+import { set } from "react-hook-form";
 
 function selectCountry() {
   const list: country[] = listCountry;
@@ -54,6 +55,7 @@ const SignUp: React.FC = () => {
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
   const [numNumber, setNumNumber] = useState(false);
+  const [showCondition, setShowCondition] = useState(false);
   const [pass, setPass] = useState(false);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -83,7 +85,7 @@ const SignUp: React.FC = () => {
             <Input type="text" id="email" placeholder="phone number" />
           </div>
         </div>
-        <div className="w-1/2 space-y-1">
+        <div className="w-1/2 space-y-2">
           <Label htmlFor="email">password</Label>
           <div className="relative">
             <Input
@@ -92,6 +94,12 @@ const SignUp: React.FC = () => {
               placeholder="password"
               onChange={handlePasswordChange}
               className="pr-10"
+              onFocus={() => {
+                setShowCondition(true);
+              }}
+              onBlur={() => {
+                setShowCondition(false);
+              }}
             />
             <button
               type="button"
@@ -106,7 +114,12 @@ const SignUp: React.FC = () => {
             </button>
           </div>
           <div>
-            <ul className="text-xs  space-y-1">
+            <ul
+              className="text-xs  space-y-1"
+              {...(showCondition
+                ? { style: { display: "block" } }
+                : { style: { display: "none" } })}
+            >
               <li
                 className={`flex items-center gap-2 ${
                   strLength ? "text-green-700" : "text-gray-500"
