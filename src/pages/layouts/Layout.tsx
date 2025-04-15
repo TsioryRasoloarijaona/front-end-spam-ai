@@ -5,7 +5,30 @@ import { TiMessages } from "react-icons/ti";
 import { CiLogout } from "react-icons/ci";
 import { MdQuestionMark } from "react-icons/md";
 import { MdFormatListNumbered } from "react-icons/md";
+import { getMethod } from "@/utils/fecthing";
+import { useState, useEffect } from "react";
+import { AccountDTO } from "@/interfaces/dataTypes";
+import Cookies from "js-cookie";
+
 export default function Layout() {
+  const [user, setUser] = useState<AccountDTO>();
+  const token: string = Cookies.get("authToken") || "";
+
+  const getUser = async () => {
+    try {
+      const res: AccountDTO = await getMethod<AccountDTO>(token, "api/account/info", null);
+      console.log("User data:", res); 
+      setUser(res);
+    } catch (error : any) {
+      console.error("Error response:", error.response);
+    }
+  };
+
+  useEffect(() => {
+    console.log(token)
+    getUser();
+  }, []);
+
   return (
     <>
       <div className="w-full h-[100vh] flex flex-col">
@@ -20,18 +43,17 @@ export default function Layout() {
               <TiMessages className="text-xl" />
               <MdQuestionMark className="text-xl" />
               <MdFormatListNumbered className="text-xl" />
-
             </div>
-            <div className=" p-3 rounded-full bg-[rgb(236,236,240)] w-[50px] h-[50px] flex justify-center items-center text-black font-bold">
-              TR
+            <div className=" p-3 rounded-full bg-[rgb(236,236,240)] w-[50px] h-[50px] flex justify-center items-center text-black font-bold uppercase">
+              {(user?.peopleInfoDTO?.firstName?.[0] ?? "") + (user?.peopleInfoDTO?.lastName?.[0] ?? "")}
             </div>
             <div className="text-sm">
-              <p>rasoloariajoana nahoma</p>
+              <p>{`${user?.peopleInfoDTO?.firstName} ${user?.peopleInfoDTO?.lastName}`}</p>
             </div>
           </div>
         </div>
         <div className="flex-grow grid grid-cols-[1fr_5fr]">
-          <div className="h-full border-r border-gray-300 ">
+          <div className="h-full border-r border-gray-300">
             <Menu />
           </div>
           <div className="h-full">

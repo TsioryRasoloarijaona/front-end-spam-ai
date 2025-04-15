@@ -19,7 +19,7 @@ export default function NewMsg() {
             new message
           </button>
         </DialogTrigger>
-        <DialogContent className="max-w-[800px] h-[600px]">
+        <DialogContent className="w-[900px] h-[600px]">
           <TextEditor />
         </DialogContent>
       </Dialog>

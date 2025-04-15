@@ -7,6 +7,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import {
   Select,
   SelectContent,
@@ -15,6 +16,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { listCountry, country } from "../utils/country";
+import { set } from "react-hook-form";
 
 function selectCountry() {
   const list: country[] = listCountry;
@@ -53,6 +55,7 @@ const SignUp: React.FC = () => {
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
   const [numNumber, setNumNumber] = useState(false);
+  const [showCondition, setShowCondition] = useState(false);
   const [pass, setPass] = useState(false);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -82,7 +85,7 @@ const SignUp: React.FC = () => {
             <Input type="text" id="email" placeholder="phone number" />
           </div>
         </div>
-        <div className="w-1/2 space-y-1">
+        <div className="w-1/2 space-y-2">
           <Label htmlFor="email">password</Label>
           <div className="relative">
             <Input
@@ -91,6 +94,12 @@ const SignUp: React.FC = () => {
               placeholder="password"
               onChange={handlePasswordChange}
               className="pr-10"
+              onFocus={() => {
+                setShowCondition(true);
+              }}
+              onBlur={() => {
+                setShowCondition(false);
+              }}
             />
             <button
               type="button"
@@ -105,7 +114,12 @@ const SignUp: React.FC = () => {
             </button>
           </div>
           <div>
-            <ul className="text-xs  space-y-1">
+            <ul
+              className="text-xs  space-y-1"
+              {...(showCondition
+                ? { style: { display: "block" } }
+                : { style: { display: "none" } })}
+            >
               <li
                 className={`flex items-center gap-2 ${
                   strLength ? "text-green-700" : "text-gray-500"
@@ -141,18 +155,14 @@ const SignUp: React.FC = () => {
         <div>
           <p>
             already have an account ?{" "}
-            <Link to={"/"} className="underline">
+            <Link to={"/signIn"} className="underline">
               sign in
             </Link>
           </p>
         </div>
       </form>
       <div className=" h-[100vh] flex justify-center items-center">
-        <img
-          src="src/assets/mailbox.png"
-          alt="Description of image"
-          className="w-2/3 h-2/3"
-        />
+        <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
       </div>
     </div>
   );

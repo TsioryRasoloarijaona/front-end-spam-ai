@@ -11,4 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"), // Configure l'alias @ pour pointer vers src
     },
   },
+  define : {
+    global: "window"
+  }
 })

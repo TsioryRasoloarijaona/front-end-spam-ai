@@ -1,21 +1,23 @@
-import MessageView from "@/components/MessageView"
-import email from "@/interfaces/EmailInterface"
+import MessageView from "@/components/MessageView";
+import { useOutletContext, useParams } from "react-router";
+import { MessageToSend } from "@/interfaces/dataTypes";
 
 export default function InboxView() {
-  const mail : email = {
-    email : 'john@smail.com' ,
-    content : `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero architecto earum dolor culpa atque cumque consequuntur consectetur eum fugiat nemo qui corrupti cum vitae doloribus saepe explicabo inventore, at iure.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique repellendus doloremque odit pariatur illo ea qui inventore, excepturi nostrum, tenetur deleniti velit soluta, commodi voluptas perspiciatis. Dolor nesciunt reprehenderit quasi.
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente doloribus blanditiis iusto veniam ab ipsum animi laudantium possimus? Expedita laborum, ea molestias numquam quia asperiores dignissimos voluptate iusto itaque necessitatibus.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat excepturi consequatur tenetur libero, et officiis esse perferendis rerum delectus similique recusandae! Libero, aliquid ipsam! Sit ipsum inventore corporis error a?` ,
-    object : 'here is the object' ,
-    dateTime : '2025-02-11 12:45'
+  const { id } = useParams<{ id: string }>(); 
+  const { allMessages } = useOutletContext<{ allMessages : MessageToSend[] }>(); 
+
+ 
+  const mail = allMessages?.find((email) => email.id.toString() === id);
+
+  
+  if (!mail) {
+    return <p>select a msg to open</p>;
   }
+
   return (
     <>
-      <MessageView content={mail}/>
-      
+      <MessageView content={mail} />
     </>
-  )
+  );
 }
 
