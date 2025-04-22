@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const BASE_URL = process.env.BASE_URL; // Utilisation de la variable d'environnement
+
 export async function getMethod<T>(
   token: string | null,
   urlSppecification: string,
@@ -9,8 +11,8 @@ export async function getMethod<T>(
     const cleanToken = token?.replace(/"/g, "");
     const headers = token ? { Authorization: `Bearer ${cleanToken}` } : {};
     const url = paramsOrVariable
-      ? `http://localhost:8080/${urlSppecification}/${paramsOrVariable}`
-      : `http://localhost:8080/${urlSppecification}`;
+      ? `${BASE_URL}/${urlSppecification}/${paramsOrVariable}`
+      : `${BASE_URL}/${urlSppecification}`; // Utilisation de BASE_URL
     const response = await axios.get<T>(url, { headers });
     return response.data;
   } catch (error) {
@@ -26,7 +28,7 @@ export async function postMethod<T>(
 ) {
   try {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    const url = `http://localhost:8080/${urlSppecification}`;
+    const url = `${BASE_URL}/${urlSppecification}`; // Utilisation de BASE_URL
     const response = await axios.post<T>(url, data, { headers });
     return JSON.stringify(response.data);
   } catch (error) {
