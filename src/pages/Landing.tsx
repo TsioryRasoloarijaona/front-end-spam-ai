@@ -7,6 +7,7 @@ export default function Landing() {
         <div className="flex gap-4">
             <Link to="/info" className="bg-black text-white px-4 py-2 rounded-md">create a new account</Link>
             <Link to="/signIn" className="border border-gray-400 px-4 py-2 rounded-md">sign in</Link>
+            <div>push</div>
         </div>
     </div>
   )
