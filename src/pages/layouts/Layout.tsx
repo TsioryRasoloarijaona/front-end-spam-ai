@@ -33,8 +33,8 @@ export default function Layout() {
     <>
       <div className="w-full h-[100vh] flex flex-col">
         <div className="h-fit w-full flex justify-between items-center  border-b border-gray-300 py-3 px-7">
-          <div>
-            <h1 className="text-2xl font-extrabold ">Smail LOgo</h1>
+          <div className="h-[50px] w-[80px]">
+            <img src="/maily.jpeg" alt="maily" className="w-full h-full"/>
           </div>
           <div className="flex gap-3 items-center  justify-end">
             <div className="mr-9 flex gap-8">
@@ -44,7 +44,7 @@ export default function Layout() {
               <MdQuestionMark className="text-xl" />
               <MdFormatListNumbered className="text-xl" />
             </div>
-            <div className=" p-3 rounded-full bg-[rgb(236,236,240)] w-[50px] h-[50px] flex justify-center items-center text-black font-bold uppercase">
+            <div className="p-3 rounded-full bg-[rgb(236,236,240)] w-[50px] h-[50px] flex justify-center items-center text-black font-bold uppercase">
               {(user?.peopleInfoDTO?.firstName?.[0] ?? "") + (user?.peopleInfoDTO?.lastName?.[0] ?? "")}
             </div>
             <div className="text-sm">

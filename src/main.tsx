@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { useState, useEffect } from "react";
-import { DotLoader } from "react-spinners";
+import { BarLoader} from "react-spinners";
 
 export default function Main() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,8 +22,8 @@ export default function Main() {
     return (
       <>
         <div className="flex flex-col justify-center items-center h-screen bg-white">
-          <DotLoader className="text-black mb-9 " size={80}/>
-          <p className="text-3xl font-bold">Welcome to SMail</p>
+          <img src="/maily_big.jpeg" alt="" className="mb-7"/>
+          <BarLoader className="mb-9" width={250} color="rgb(136,211,211)"/>
           <Toaster position="top-center" />
         </div>
       </>
