@@ -61,9 +61,19 @@ export default function SignIn() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-white px-4">
+      <div className="absolute top-0 left-0 w-[120px] p-2">
+        <img src="/maily_icon.png" alt="" className="w-full h-full" />
+      </div>
       <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
-        <DotLottieReact src="DVVBibkABB.lottie" loop autoplay style={{ width: '150px', height: '150px' }}/>
-        <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">Login and start using Smail</h1>
+        <DotLottieReact
+          src="DVVBibkABB.lottie"
+          loop
+          autoplay
+          style={{ width: "150px", height: "150px" }}
+        />
+        <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">
+          Login and start using Smail
+        </h1>
         <form
           className="w-full flex flex-col items-center gap-6"
           onSubmit={handleSubmit(onSubmit)}

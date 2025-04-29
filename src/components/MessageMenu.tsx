@@ -5,7 +5,12 @@ import { formatDateTime } from "@/utils/converter";
 export default function MessageMenu({ body }: { body: MessageToSend }) {
   return (
     <div className="flex flex-row space-x-4 h-[100px] overflow-hidden py-3 px-7">
-      <div className="bg-[rgb(136,211,211)] text-white font-bold w-[40px] h-[40px] rounded-full flex items-center justify-center uppercase">
+      <div
+        className={`text-white font-bold w-[40px] h-[40px] rounded-full flex items-center justify-center uppercase`}
+        style={{
+          backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+        }}
+      >
         <p>{`${body.accountDTO?.peopleInfoDTO?.firstName[0]}${body.accountDTO?.peopleInfoDTO?.lastName[0]}`}</p>
       </div>
       <div className="w-11/12 ">
