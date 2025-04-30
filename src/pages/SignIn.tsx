@@ -61,9 +61,7 @@ export default function SignIn() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-white px-4">
-      <div className="absolute top-0 left-0 w-[120px] p-2">
-        <img src="/maily_icon.png" alt="" className="w-full h-full" />
-      </div>
+    
       <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
         <DotLottieReact
           src="DVVBibkABB.lottie"
@@ -136,7 +134,7 @@ export default function SignIn() {
           <div className="w-full mt-3">
             <Button
               size={"lg"}
-              className="w-full"
+              className="w-full bg-teal-700"
               type="submit"
               disabled={isLoading || !email || !password}
             >
