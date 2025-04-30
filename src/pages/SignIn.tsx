@@ -61,16 +61,15 @@ export default function SignIn() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-white px-4">
-    
       <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
         <DotLottieReact
-          src="DVVBibkABB.lottie"
+          src="message.lottie"
           loop
           autoplay
           style={{ width: "150px", height: "150px" }}
         />
         <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">
-          Login and start using Smail
+          Welcome back
         </h1>
         <form
           className="w-full flex flex-col items-center gap-6"
@@ -86,7 +85,7 @@ export default function SignIn() {
                 <Input
                   type="email"
                   id="email"
-                  placeholder="email@smail.com"
+                  placeholder="email@maily.tech"
                   {...field}
                 />
               )}
@@ -134,7 +133,7 @@ export default function SignIn() {
           <div className="w-full mt-3">
             <Button
               size={"lg"}
-              className="w-full bg-teal-700"
+              className="w-full bg-teal-700 hover:bg-teal-800"
               type="submit"
               disabled={isLoading || !email || !password}
             >
