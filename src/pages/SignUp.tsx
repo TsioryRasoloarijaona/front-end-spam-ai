@@ -17,7 +17,6 @@ import {
 } from "../components/ui/select";
 import { listCountry, country } from "../utils/country";
 
-
 function selectCountry() {
   const list: country[] = listCountry;
   return (
@@ -64,29 +63,31 @@ const SignUp: React.FC = () => {
     setNumNumber(numericNumber(value));
   };
   return (
-    <div className="w-[100vw] h-full grid grid-cols-2">
-      <form className="flex flex-col justify-center items-center gap-6 ">
-        <h1 className="font-bold text-3xl mb-3">create your account</h1>
-        <div className="w-1/2 space-y-1">
+    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 items-center">
+      <form className="flex flex-col justify-center items-center gap-6 px-4 md:px-0">
+        <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">
+          Create your account
+        </h1>
+        <div className="w-full md:w-1/2 space-y-1">
           <Label htmlFor="email">
-            choose your email adddress<span className="text-red-500">*</span>
+            Choose your email address<span className="text-red-500">*</span>
           </Label>
           <div className="flex gap-2">
             <Input type="email" id="email" placeholder="email@smail.com" />
             <Input type="text" id="email" value={"@smail.com"} />
           </div>
         </div>
-        <div className="w-1/2 space-y-1">
+        <div className="w-full md:w-1/2 space-y-1">
           <Label htmlFor="email">
-            phone number <span className="text-red-500">*</span>
+            Phone number <span className="text-red-500">*</span>
           </Label>
           <div className="flex gap-2">
             {selectCountry()}
             <Input type="text" id="email" placeholder="phone number" />
           </div>
         </div>
-        <div className="w-1/2 space-y-2">
-          <Label htmlFor="email">password</Label>
+        <div className="w-full md:w-1/2 space-y-2">
+          <Label htmlFor="email">Password</Label>
           <div className="relative">
             <Input
               type={pass ? "text" : "password"}
@@ -115,7 +116,7 @@ const SignUp: React.FC = () => {
           </div>
           <div>
             <ul
-              className="text-xs  space-y-1"
+              className="text-xs space-y-1"
               {...(showCondition
                 ? { style: { display: "block" } }
                 : { style: { display: "none" } })}
@@ -125,7 +126,7 @@ const SignUp: React.FC = () => {
                   strLength ? "text-green-700" : "text-gray-500"
                 }`}
               >
-                at least 6 characters{" "}
+                At least 6 characters{" "}
                 {strLength ? <MdDone /> : <RiErrorWarningLine />}
               </li>
               <li
@@ -133,7 +134,7 @@ const SignUp: React.FC = () => {
                   capLetter ? "text-green-700" : "text-gray-500"
                 }`}
               >
-                at least 1 capital letter{" "}
+                At least 1 capital letter{" "}
                 {capLetter ? <MdDone /> : <RiErrorWarningLine />}
               </li>
               <li
@@ -141,27 +142,27 @@ const SignUp: React.FC = () => {
                   numNumber ? "text-green-700" : "text-gray-500"
                 }`}
               >
-                at least one numeric number{" "}
+                At least one numeric number{" "}
                 {numNumber ? <MdDone /> : <RiErrorWarningLine />}
               </li>
             </ul>
           </div>
         </div>
-        <div className="w-1/2 mt-3">
+        <div className="w-full md:w-1/2 mt-3">
           <Button size={"lg"} className="w-full">
-            verify phone number
+            Verify phone number
           </Button>
         </div>
         <div>
-          <p>
-            already have an account ?{" "}
+          <p className="text-center">
+            Already have an account?{" "}
             <Link to={"/signIn"} className="underline">
-              sign in
+              Sign in
             </Link>
           </p>
         </div>
       </form>
-      <div className=" h-[100vh] flex justify-center items-center">
+      <div className="hidden md:flex h-full justify-center items-center">
         <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
       </div>
     </div>

@@ -48,7 +48,7 @@ export default function ListMenu({ param }: { param: ListMenuProps[] }) {
         {param.map((param, i) => (
           <li
             className={`border-b border-gray-200 ${
-              selected == i ? "bg-[rgb(236,236,240)]" : ""
+              selected == i ? "bg-[rgb(233,233,236)]" : ""
             }`}
             key={i}
             onClick={() => setSelected(i)}

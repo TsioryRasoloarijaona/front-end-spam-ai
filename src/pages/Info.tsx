@@ -31,7 +31,7 @@ export default function Info() {
           <Input type="date" id="email" placeholder="phone number" />
         </div>
         <div className="w-1/2 mt-3">
-          <Button size={"lg"} className="w-full">
+          <Button size={"lg"} className="w-full bg-teal-700">
             next
           </Button>
         </div>

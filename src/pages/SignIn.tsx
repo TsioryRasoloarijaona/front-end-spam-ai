@@ -15,7 +15,6 @@ import { toast } from "sonner";
 import { PulseLoader } from "react-spinners";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-
 interface loginRequest {
   email: string;
   password: string;
@@ -61,16 +60,24 @@ export default function SignIn() {
   };
 
   return (
-    <div className="w-[100vw] flex justify-center items-center h-[100vh] bg-white">
-      <div className="flex flex-col justify-center items-center gap-8 w-1/2">
-        <DotLottieReact src="DVVBibkABB.lottie" loop autoplay style={{ width: '150px', height: '150px' }}/>
-        <h1 className="font-bold text-3xl mb-3">login and start using smail</h1>
+    <div className="w-full flex justify-center items-center h-screen bg-white px-4">
+    
+      <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
+        <DotLottieReact
+          src="DVVBibkABB.lottie"
+          loop
+          autoplay
+          style={{ width: "150px", height: "150px" }}
+        />
+        <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">
+          Login and start using Smail
+        </h1>
         <form
           className="w-full flex flex-col items-center gap-6"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="w-1/2 space-y-1">
-            <Label htmlFor="email">mail address</Label>
+          <div className="w-full space-y-1">
+            <Label htmlFor="email">Mail Address</Label>
             <Controller
               name="email"
               control={control}
@@ -84,14 +91,13 @@ export default function SignIn() {
                 />
               )}
             />
-
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
           </div>
 
-          <div className="w-1/2 space-y-1">
-            <Label htmlFor="password">password</Label>
+          <div className="w-full space-y-1">
+            <Label htmlFor="password">Password</Label>
             <div className="relative">
               <Controller
                 name="password"
@@ -122,13 +128,13 @@ export default function SignIn() {
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
-            <p className="text-sm text-right mt-3"> forgot password ?</p>
+            <p className="text-sm text-right mt-3">Forgot password?</p>
           </div>
 
-          <div className="w-1/2 mt-3">
+          <div className="w-full mt-3">
             <Button
               size={"lg"}
-              className="w-full"
+              className="w-full bg-teal-700"
               type="submit"
               disabled={isLoading || !email || !password}
             >
@@ -136,7 +142,7 @@ export default function SignIn() {
                 <PulseLoader size={8} color="#ffffff" />
               ) : (
                 <>
-                  sign in <FaArrowRight />
+                  Sign In <FaArrowRight />
                 </>
               )}
             </Button>
@@ -144,10 +150,10 @@ export default function SignIn() {
         </form>
 
         <div>
-          <p>
-            don't have an account?{" "}
+          <p className="text-center">
+            Don't have an account?{" "}
             <Link to={"/info"} className="underline">
-              create a new account
+              Create a new account
             </Link>
           </p>
         </div>
