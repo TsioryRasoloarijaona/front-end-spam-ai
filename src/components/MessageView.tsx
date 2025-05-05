@@ -1,9 +1,11 @@
-
 import { MessageToSend } from "@/interfaces/dataTypes";
 import { formatDateTime } from "@/utils/converter";
+import Pdf from "./attachment/Pdf";
+import Docs from "./attachment/Docs";
+import Img from "./attachment/Img";
+import Xl from "./attachment/Xl";
 
-
-export default function MessageView({content} : {content : MessageToSend} ) {
+export default function MessageView({ content }: { content: MessageToSend }) {
   return (
     <div className=" w-full p-7 space-y-11">
       <div className="flex justify-between">
@@ -20,12 +22,16 @@ export default function MessageView({content} : {content : MessageToSend} ) {
           <p className="text-sm">{formatDateTime(content?.sendDateTime)}</p>
         </div>
       </div>
-      <div className="font-bold ">{content?.object}</div>
+      <div className="font-semibold text-sm">{content?.object}</div>
       <div>
-        <div className="leading-8 text-base">{content?.body}</div>
+        <div className="leading-8 text-sm">{content?.body}</div>
       </div>
-      <div>document1.pdf</div>
+      <div className="flex flex-row gap-3 items-center text-sm">
+        <Pdf name="document.pdf" />
+        <Docs name="document.docx" />
+        <Img name="document.png" />
+        <Xl name="document.xlsx" />
+      </div>
     </div>
   );
-  
 }

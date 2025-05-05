@@ -39,7 +39,7 @@ export default function Layout() {
     getEmails();
   }, []);
 
-  const allMessages = [...(emails || []), ...messages];
+  const allMessages = [...messages, ...(emails || [])];
 
   if (Array.isArray(allMessages) && allMessages.length > 0) {
     allMessages?.forEach((email) => {

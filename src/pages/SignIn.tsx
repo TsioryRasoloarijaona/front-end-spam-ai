@@ -14,6 +14,7 @@ import { useWebSocket } from "./layouts/Inbox/webSocketContext";
 import { toast } from "sonner";
 import { PulseLoader } from "react-spinners";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import ThemeButton from "@/components/ui/ThemeButton";
 
 interface loginRequest {
   email: string;
@@ -61,6 +62,7 @@ export default function SignIn() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-white px-4">
+      <ThemeButton/>
       <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
         <DotLottieReact
           src="message.lottie"

@@ -41,10 +41,10 @@ const Menu: React.FC = () => {
   return (
     <div className="w-full h-full">
       <div className="px-7">
-        <div className="mb-6 mt-10">
+        <div className="mb-6 mt-10 hidden md:block lg:block">
           <NewMsg />
         </div>
-        <ul className="space-y-3">
+        <ul className="space-y-1">
           {menuList.map((menu, i) => (
             <li
               key={i}
