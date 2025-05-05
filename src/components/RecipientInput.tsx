@@ -3,11 +3,22 @@ import React, { useState } from "react";
 export default function RecipientInput() {
   const [recipients, setRecipients] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
+
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleAddRecipient = () => {
+    if (!isValidEmail(inputValue.trim())) {
+      setError("Invalid email address");
+      return;
+    }
     if (inputValue.trim() && !recipients.includes(inputValue.trim())) {
       setRecipients([...recipients, inputValue.trim()]);
       setInputValue("");
+      setError(""); // Clear error on successful addition
     }
   };
 
@@ -28,7 +39,7 @@ export default function RecipientInput() {
         {recipients.map((recipient, index) => (
           <div
             key={index}
-            className="flex items-center border border-gray-300 px-3 py-1 rounded-full"
+            className="flex items-center bg-gray-200 px-3 py-1 rounded-full"
           >
             <span className="mr-2">{recipient}</span>
             <button
@@ -46,9 +57,10 @@ export default function RecipientInput() {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Add recipient"
-          className="overflow-x-auto outline-none"
+          className="flex-grow outline-none"
         />
       </div>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }
