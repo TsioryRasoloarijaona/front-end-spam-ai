@@ -8,6 +8,9 @@ import { MdDone } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import useAccountStore from "@/hooks/accountStore";
+("@/hooks/accountStore");
+import { UserAccount } from "@/interfaces/UserAccount";
 import {
   Select,
   SelectContent,
@@ -16,27 +19,8 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { listCountry, country } from "../utils/country";
-
-function selectCountry() {
-  const list: country[] = listCountry;
-  return (
-    <>
-      <Select>
-        <SelectTrigger className="w-[150px]">
-          <SelectValue placeholder="country" />
-        </SelectTrigger>
-        <SelectContent>
-          {list.map((item) => (
-            <SelectItem
-              key={item.code}
-              value={item.dial_code}
-            >{`${item.emoji} ${item.name} ${item.dial_code}`}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </>
-  );
-}
+import { useParams } from "react-router";
+import { SquareDashedBottomCodeIcon } from "lucide-react";
 
 function stringLength(str: string): boolean {
   return str.length >= 6;
@@ -51,20 +35,53 @@ function numericNumber(str: string): boolean {
 }
 
 const SignUp: React.FC = () => {
+  const { id } = useParams();
+  const { setId, peopleInfo, setEmail, setPhoneNumber } = useAccountStore();
+
+  const list: country[] = listCountry;
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
   const [numNumber, setNumNumber] = useState(false);
   const [showCondition, setShowCondition] = useState(false);
   const [pass, setPass] = useState(false);
+  const [password, setPassword] = useState("");
+  const [emailLocalPart, setEmailLocalPart] = useState("");
+  const emailDomain = "@maily.tech";
+  const email = `${emailLocalPart}${emailDomain}`;
+  const [code, setCode] = useState("");
+  const [phoneNumber, setPhoneNumberLocal] = useState("");
+  const phone = `${code}${phoneNumber}`;
+  
+
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    setPassword(value);
     setStrLength(stringLength(value));
     setCapLetter(capitalLetter(value));
     setNumNumber(numericNumber(value));
   };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailLocalPart(e.target.value);
+  };
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setId(id || "");
+    setEmail(email);
+    setPhoneNumber(phone);
+    console.log("User ID:", id);
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Phone Number:", phone);
+  };
+
   return (
     <div className="w-full h-screen grid grid-cols-1 md:grid-cols-2 items-center">
-      <form className="flex flex-col justify-center items-center gap-6 px-4 md:px-0">
+      <form
+        className="flex flex-col justify-center items-center gap-6 px-4 md:px-0"
+        onSubmit={onSubmit}
+      >
         <h1 className="font-bold text-2xl md:text-3xl mb-3 text-center">
           Create your account
         </h1>
@@ -73,18 +90,44 @@ const SignUp: React.FC = () => {
             Choose your email address<span className="text-red-500">*</span>
           </Label>
           <div className="flex gap-2">
-            <Input type="email" id="email" placeholder="email@smail.com" />
-            <Input type="text" id="email" value={"@smail.com"} />
+            <Input
+              type="text"
+              id="email"
+              placeholder="email@smail.com"
+              value={emailLocalPart}
+              onChange={handleEmailChange}
+            />
+            <Input type="text" id="email-domain" value={emailDomain} readOnly />
           </div>
         </div>
         <div className="w-full md:w-1/2 space-y-1">
           <Label htmlFor="email">
             Phone number <span className="text-red-500">*</span>
           </Label>
-          <div className="flex gap-2">
-            {selectCountry()}
-            <Input type="text" id="email" placeholder="phone number" />
-          </div>
+            <div className="flex gap-2">
+            <Select onValueChange={(value) => 
+              setCode(value.split("-")[0])
+            }>
+              <SelectTrigger className="w-[150px]">
+              <SelectValue placeholder="country" />
+              </SelectTrigger>
+              <SelectContent>
+              {list.map((item, index) => (
+                <SelectItem
+                key={`${item.dial_code}-${item.name}-${index}`}
+                value={`${item.dial_code}-${index}`}
+                >{`${item.emoji} ${item.name} ${item.dial_code}`}</SelectItem>
+              ))}
+              </SelectContent>
+            </Select>
+            <Input
+              type="text"
+              id="phone-number"
+              placeholder="phone number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumberLocal(e.target.value)}
+            />
+            </div>
         </div>
         <div className="w-full md:w-1/2 space-y-2">
           <Label htmlFor="email">Password</Label>
@@ -93,6 +136,7 @@ const SignUp: React.FC = () => {
               type={pass ? "text" : "password"}
               id="password"
               placeholder="password"
+              value={password}
               onChange={handlePasswordChange}
               className="pr-10"
               onFocus={() => {
@@ -149,7 +193,7 @@ const SignUp: React.FC = () => {
           </div>
         </div>
         <div className="w-full md:w-1/2 mt-3">
-          <Button size={"lg"} className="w-full">
+          <Button size={"lg"} className="w-full" type="submit">
             Verify phone number
           </Button>
         </div>

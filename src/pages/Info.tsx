@@ -6,6 +6,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { UserInfo } from "@/interfaces/UserInfo";
 import { useState } from "react";
+import { postMethod } from "@/utils/fecthing";
+import { useNavigate } from "react-router";
 import {
   Select,
   SelectContent,
@@ -15,19 +17,27 @@ import {
 } from "@/components/ui/select";
 
 export default function Info() {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
   } = useForm<UserInfo>();
   const [gender , setGender] = useState<"MALE" | "FEMALE">();
 
   const onSubmit: SubmitHandler<UserInfo> = (data) => {
-    data.gender = gender ?? "MALE"; // Default to "MALE" if gender is undefined
+    data.gender = gender ?? "MALE"; 
     console.log("Form Data:", data);
-    // Vous pouvez envoyer les données à une API ou les traiter ici
+    postMethod<UserInfo>(null, "api/people/info/save", data)
+      .then((response) => {
+        console.log("Response:", response);
+        navigate(`/signUp/${response}`);
+        reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
