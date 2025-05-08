@@ -10,7 +10,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { postMethod } from "@/utils/fecthing";
 import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
-import { useWebSocket } from "./layouts/Inbox/webSocketContext";
+import { useWebSocket } from "../hooks/webSocketContext";
 import { toast } from "sonner";
 import { PulseLoader } from "react-spinners";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";

@@ -7,10 +7,13 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import useAccountStore from "@/hooks/accountStore";
 ("@/hooks/accountStore");
-import { UserAccount } from "@/interfaces/UserAccount";
+import { useNavigate } from "react-router";
+import { postMethod } from "@/utils/fecthing";
+import { getMethod } from "@/utils/fecthing";
+import { toast } from "sonner";
+
 import {
   Select,
   SelectContent,
@@ -20,7 +23,6 @@ import {
 } from "../components/ui/select";
 import { listCountry, country } from "../utils/country";
 import { useParams } from "react-router";
-import { SquareDashedBottomCodeIcon } from "lucide-react";
 
 function stringLength(str: string): boolean {
   return str.length >= 6;
@@ -36,8 +38,7 @@ function numericNumber(str: string): boolean {
 
 const SignUp: React.FC = () => {
   const { id } = useParams();
-  const { setId, peopleInfo, setEmail, setPhoneNumber } = useAccountStore();
-
+  const navigate = useNavigate();
   const list: country[] = listCountry;
   const [strLength, setStrLength] = useState(false);
   const [capLetter, setCapLetter] = useState(false);
@@ -51,8 +52,7 @@ const SignUp: React.FC = () => {
   const [code, setCode] = useState("");
   const [phoneNumber, setPhoneNumberLocal] = useState("");
   const phone = `${code}${phoneNumber}`;
-  
-
+  const {updateId , updateEmail , updatePass , updatePhone} = useAccountStore ();
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPassword(value);
@@ -65,15 +65,28 @@ const SignUp: React.FC = () => {
     setEmailLocalPart(e.target.value);
   };
 
+  const fetchAction = async (email: string , phone : string) => {
+    try {
+      const response = await getMethod<any>(null, `api/account/mail`, email);
+      if (response.status === 409) {
+        console.log("Request successful:", response.status);
+        toast.error(`${email} already exists`);
+      }else{
+        postMethod<any>(null , `api/account/verification/${phone}`, null)
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    }
+  };
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setId(id || "");
-    setEmail(email);
-    setPhoneNumber(phone);
-    console.log("User ID:", id);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Phone Number:", phone);
+    updateId(id ?? "");
+    updateEmail(email);
+    updatePass(password);
+    updatePhone(phone);
+    fetchAction(email , phone);
+    navigate(`/phone`);
   };
 
   return (
@@ -104,20 +117,18 @@ const SignUp: React.FC = () => {
           <Label htmlFor="email">
             Phone number <span className="text-red-500">*</span>
           </Label>
-            <div className="flex gap-2">
-            <Select onValueChange={(value) => 
-              setCode(value.split("-")[0])
-            }>
+          <div className="flex gap-2">
+            <Select onValueChange={(value) => setCode(value.split("-")[0])}>
               <SelectTrigger className="w-[150px]">
-              <SelectValue placeholder="country" />
+                <SelectValue placeholder="country" />
               </SelectTrigger>
               <SelectContent>
-              {list.map((item, index) => (
-                <SelectItem
-                key={`${item.dial_code}-${item.name}-${index}`}
-                value={`${item.dial_code}-${index}`}
-                >{`${item.emoji} ${item.name} ${item.dial_code}`}</SelectItem>
-              ))}
+                {list.map((item, index) => (
+                  <SelectItem
+                    key={`${item.dial_code}-${item.name}-${index}`}
+                    value={`${item.dial_code}-${index}`}
+                  >{`${item.emoji} ${item.name} ${item.dial_code}`}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <Input
@@ -127,7 +138,7 @@ const SignUp: React.FC = () => {
               value={phoneNumber}
               onChange={(e) => setPhoneNumberLocal(e.target.value)}
             />
-            </div>
+          </div>
         </div>
         <div className="w-full md:w-1/2 space-y-2">
           <Label htmlFor="email">Password</Label>
@@ -207,7 +218,7 @@ const SignUp: React.FC = () => {
         </div>
       </form>
       <div className="hidden md:flex h-full justify-center items-center">
-        <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
+        
       </div>
     </div>
   );

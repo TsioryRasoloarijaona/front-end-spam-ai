@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { UserInfo } from "@/interfaces/UserInfo";
 import { useState } from "react";
@@ -32,7 +31,7 @@ export default function Info() {
     postMethod<UserInfo>(null, "api/people/info/save", data)
       .then((response) => {
         console.log("Response:", response);
-        navigate(`/signUp/${response}`);
+        navigate(`/signUp/${response.replace(/"/g, "")}`);
         reset();
       })
       .catch((error) => {
@@ -158,7 +157,7 @@ export default function Info() {
         </div>
       </form>
       <div className=" h-[100vh] flex justify-center items-center">
-        <DotLottieReact src="Animation - 1743905592629.lottie" loop autoplay />
+        
       </div>
     </div>
   );

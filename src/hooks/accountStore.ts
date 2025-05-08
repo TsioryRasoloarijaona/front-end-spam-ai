@@ -1,25 +1,24 @@
-import {create} from 'zustand';
-import { UserAccount } from '@/interfaces/UserAccount';
+import { create } from "zustand";
+import { UserAccount } from "@/interfaces/UserAccount";
 
 type action = {
-    setId : (id: UserAccount["peopleInfo"]["id"]) => void
-    setEmail: (email: UserAccount["email"]) => void
-    setPhoneNumber: (phoneNumer : UserAccount["phoneNumber"]) => void
-    setPassword: (password : UserAccount["password"]) => void
-}
+  updateId: (id: UserAccount["peopleInfo"]["id"]) => void;
+  updateEmail: (email: UserAccount["email"]) => void;
+  updatePhone: (phoneNumer: UserAccount["phoneNumber"]) => void;
+  updatePass: (password: UserAccount["password"]) => void;
+};
 
 const useAccountStore = create<UserAccount & action>((set) => ({
-    peopleInfo: {
-        id: "",
-    },
-    phoneNumber: "",
-    email: "",
-    password: "",
-    setId: (id) => set(() => ({ peopleInfo: { id } })),
-    setEmail: (email) => set(() => ({ email })),
-    setPhoneNumber: (phoneNumber) => set(() => ({ phoneNumber })),
-    setPassword: (password) => set(() => ({ password }))
-    
-}))
+  peopleInfo: {
+    id: "",
+  },
+  phoneNumber: "",
+  email: "",
+  password: "",
+  updateId: (id) => set(() => ({ peopleInfo: { id } })),
+  updateEmail: (email) => set(() => ({ email })),
+  updatePhone: (phoneNumber) => set(() => ({ phoneNumber })),
+  updatePass: (password) => set(() => ({ password })),
+}));
 
 export default useAccountStore;

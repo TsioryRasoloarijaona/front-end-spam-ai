@@ -11,7 +11,7 @@ import InboxView from "./pages/layouts/Inbox/InboxView";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import Creation from "./pages/Creation";
-import { WebSocketProvider } from "./pages/layouts/Inbox/webSocketContext";
+import { WebSocketProvider } from "./hooks/webSocketContext";
 function App() {
   return (
     <>
