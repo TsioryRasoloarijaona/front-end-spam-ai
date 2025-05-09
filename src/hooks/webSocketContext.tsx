@@ -9,10 +9,12 @@ interface WebSocketContextType {
   connectWebSocket: (token: string) => void;
   disconnectWebSocket: () => void;
 }
+const BASE_URL = process.env.SOCKET_URL;
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
 export const useWebSocket = () => {
+  
   const context = useContext(WebSocketContext);
   if (!context) {
     throw new Error("useWebSocket doit être utilisé à l'intérieur d'un WebSocketProvider");
@@ -30,7 +32,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return;
     }
 
-    const socket = new SockJS(`http://localhost:8080/ws?token=${token}`);
+    const socket = new SockJS(`${BASE_URL}?token=${token}`);
     const stompClient = Stomp.over(socket);
     stompClientRef.current = stompClient;
 

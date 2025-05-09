@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
-import { useWebSocket } from "./webSocketContext";
+import { useWebSocket } from "../../../hooks/webSocketContext";
 
 interface ListMenuProps {
   menu: React.ReactNode;

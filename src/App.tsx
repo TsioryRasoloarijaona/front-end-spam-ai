@@ -11,7 +11,7 @@ import InboxView from "./pages/layouts/Inbox/InboxView";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import Creation from "./pages/Creation";
-import { WebSocketProvider } from "./pages/layouts/Inbox/webSocketContext";
+import { WebSocketProvider } from "./hooks/webSocketContext";
 function App() {
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/info" element={<Info />} />
-          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/signUp/:id" element={<SignUp />} />
           <Route path="/phone" element={<Phone />} />
           <Route path="/creation" element={<Creation />} />
           <Route path="/signIn" element={<SignIn />} />
