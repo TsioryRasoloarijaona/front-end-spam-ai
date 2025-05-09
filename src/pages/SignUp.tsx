@@ -70,13 +70,13 @@ const SignUp: React.FC = () => {
       const response = await getMethod<any>(null, `api/account/mail`, email);
       if (response.status === 409) {
         console.log("Request successful:", response.status);
-        toast.error(`${email} already exists`);
       } else {
         postMethod<any>(null, `api/account/verification/${phone}`, null);
         navigate(`/phone`);
       }
     } catch (error) {
       console.error("Error during fetch:", error);
+      toast.error(`${email} already exists`);
     }
   };
 
