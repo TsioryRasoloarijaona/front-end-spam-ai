@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.BASE_URL; // Utilisation de la variable d'environnement
+const BASE_URL = process.env.BASE_URL;
 
 export async function getMethod<T>(
   token: string | null,
