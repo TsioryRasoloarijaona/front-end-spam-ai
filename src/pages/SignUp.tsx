@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
   const [code, setCode] = useState("");
   const [phoneNumber, setPhoneNumberLocal] = useState("");
   const phone = `${code}${phoneNumber}`;
-  const {updateId , updateEmail , updatePass , updatePhone} = useAccountStore ();
+  const { updateId, updateEmail, updatePass, updatePhone } = useAccountStore();
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPassword(value);
@@ -65,14 +65,15 @@ const SignUp: React.FC = () => {
     setEmailLocalPart(e.target.value);
   };
 
-  const fetchAction = async (email: string , phone : string) => {
+  const fetchAction = async (email: string, phone: string) => {
     try {
       const response = await getMethod<any>(null, `api/account/mail`, email);
       if (response.status === 409) {
         console.log("Request successful:", response.status);
         toast.error(`${email} already exists`);
-      }else{
-        postMethod<any>(null , `api/account/verification/${phone}`, null)
+      } else {
+        postMethod<any>(null, `api/account/verification/${phone}`, null);
+        navigate(`/phone`);
       }
     } catch (error) {
       console.error("Error during fetch:", error);
@@ -85,8 +86,7 @@ const SignUp: React.FC = () => {
     updateEmail(email);
     updatePass(password);
     updatePhone(phone);
-    fetchAction(email , phone);
-    navigate(`/phone`);
+    fetchAction(email, phone);
   };
 
   return (
@@ -217,9 +217,7 @@ const SignUp: React.FC = () => {
           </p>
         </div>
       </form>
-      <div className="hidden md:flex h-full justify-center items-center">
-        
-      </div>
+      <div className="hidden md:flex h-full justify-center items-center"></div>
     </div>
   );
 };
