@@ -1,6 +1,7 @@
 import { MdAttachFile } from "react-icons/md";
 import { MessageToSend } from "@/interfaces/dataTypes";
 import { formatDateTime } from "@/utils/converter";
+import {stripHtmlTags} from '@/utils/stringUtils'
 
 export default function MessageMenu({ body }: { body: MessageToSend }) {
   return (
@@ -20,7 +21,7 @@ export default function MessageMenu({ body }: { body: MessageToSend }) {
         </p>
         <p className="mb-2 text-sm font-bold ">{body.object}</p>
         <p className="truncate overflow-y-hidden text-ellipsis text-sm flex items-center justify-between">
-          <p>{body.body}</p>
+          <p>{stripHtmlTags(body.body)}</p>
           <MdAttachFile className="text-xl text-gray-400" />
         </p>
       </div>

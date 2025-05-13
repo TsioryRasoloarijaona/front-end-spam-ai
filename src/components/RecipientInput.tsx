@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export default function RecipientInput() {
+interface RecipientInputProps {
+  onRecipientsChange?: (recipients: string[]) => void; // Fonction de rappel pour transmettre les destinataires
+}
+
+export default function RecipientInput({ onRecipientsChange }: RecipientInputProps) {
   const [recipients, setRecipients] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
@@ -16,14 +20,18 @@ export default function RecipientInput() {
       return;
     }
     if (inputValue.trim() && !recipients.includes(inputValue.trim())) {
-      setRecipients([...recipients, inputValue.trim()]);
+      const updatedRecipients = [...recipients, inputValue.trim()];
+      setRecipients(updatedRecipients);
+      onRecipientsChange?.(updatedRecipients); // Appelle la fonction de rappel avec les destinataires mis à jour
       setInputValue("");
       setError(""); // Clear error on successful addition
     }
   };
 
   const handleRemoveRecipient = (index: number) => {
-    setRecipients(recipients.filter((_, i) => i !== index));
+    const updatedRecipients = recipients.filter((_, i) => i !== index);
+    setRecipients(updatedRecipients);
+    onRecipientsChange?.(updatedRecipients); // Appelle la fonction de rappel avec les destinataires mis à jour
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

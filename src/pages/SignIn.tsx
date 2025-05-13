@@ -57,7 +57,7 @@ export default function SignIn() {
         .finally(() => {
           setIsLoading(false);
         });
-    }, 2500);
+    }, 1000);
   };
 
   return (
