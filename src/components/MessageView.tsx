@@ -23,9 +23,12 @@ export default function MessageView({ content }: { content: MessageToSend }) {
         </div>
       </div>
       <div className="font-semibold text-sm">{content?.object}</div>
-      <div>
-        <div className="leading-8 text-sm">{content?.body}</div>
-      </div>
+      
+        <div
+          className="leading-6 text-sm"
+          dangerouslySetInnerHTML={{ __html: content?.body }}
+        ></div>
+      
       <div className="flex flex-row gap-3 items-center text-sm">
         <Pdf name="document.pdf" />
         <Docs name="document.docx" />

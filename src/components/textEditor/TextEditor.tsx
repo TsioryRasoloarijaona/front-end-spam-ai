@@ -4,6 +4,10 @@ import "react-quill/dist/quill.snow.css";
 import "./style.css";
 import RecipientInput from "../RecipientInput";
 import { Button } from "../ui/button";
+import MessageRequest from "@/interfaces/MessageRequestInterface";
+import { postMethod } from "@/utils/fecthing";
+import Cookies from "js-cookie";
+import { toast } from "sonner";
 
 export default function TextEditor() {
   const myColors = [
@@ -43,32 +47,77 @@ export default function TextEditor() {
   ];
 
   const [code, setCode] = useState("");
+  const [recipients, setRecipients] = useState<string[]>([]);
+  const [object, setObject] = useState<string>("");
+
   const handleProcedureContentChange = (content: any) => {
     setCode(content);
+    console.log("Content:", content);
   };
-  return (
-    <>
-      <div className="mt-4 space-y-4 w-full h-full">
-        <div className="w-full text-sm">
-          <RecipientInput />
-        </div>
-        <div>
-          <input type="text" placeholder="object" className="border-b border-b-gray-300 p-2 outline-none w-full text-sm" />
-        </div>
-        <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
-          <ReactQuill
-            theme="snow"
-            modules={modules}
-            formats={formats}
-            value={code}
-            onChange={handleProcedureContentChange}
-            className="w-full border-none"
-          />
-        </div>
-        <div>
-          <Button>send</Button>
-        </div>
-      </div>
-    </>
-  );
+
+  const handleRecipientsChange = (newRecipients: string[]) => {
+    setRecipients(newRecipients);
+    console.log("Recipients:", newRecipients);
+  };
+
+  const token: string = Cookies.get("authToken") || "";
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const messageRequest: MessageRequest = {
+      object: object,
+      body: code,
+      receivers: recipients,
+    };
+    console.log("Token:", token.replace(/"/g, ""));
+    console.log("Message Request:", messageRequest);
+    try {
+      await postMethod<MessageRequest>(
+      token.replace(/"/g, ""),
+      "send",
+      messageRequest
+      );
+      
+      toast.success("Message sent successfully");
+      
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message");
+    }
+  }
+
+    return (
+      <>
+        <form className="mt-4 space-y-4 w-full h-full" onSubmit={submit}>
+          <div className="w-full text-sm">
+            <RecipientInput onRecipientsChange={handleRecipientsChange} />{" "}
+            {/* Ajout de la fonction de rappel */}
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="object"
+              className="border-b border-b-gray-300 p-2 outline-none w-full text-sm"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setObject(e.target.value)
+              }
+            />
+          </div>
+          <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
+            <ReactQuill
+              theme="snow"
+              modules={modules}
+              formats={formats}
+              value={code}
+              onChange={handleProcedureContentChange}
+              className="w-full border-none"
+            />
+          </div>
+          <div>
+            <Button type="submit">send</Button>
+          </div>
+        </form>
+      </>
+    );
+  
 }
