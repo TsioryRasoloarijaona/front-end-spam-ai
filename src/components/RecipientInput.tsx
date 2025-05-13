@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface RecipientInputProps {
-  onRecipientsChange?: (recipients: string[]) => void; // Fonction de rappel pour transmettre les destinataires
+  onRecipientsChange?: (recipients: string[]) => void; 
 }
 
 export default function RecipientInput({ onRecipientsChange }: RecipientInputProps) {
