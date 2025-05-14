@@ -4,6 +4,8 @@ import Pdf from "./attachment/Pdf";
 import Docs from "./attachment/Docs";
 import Img from "./attachment/Img";
 import Xl from "./attachment/Xl";
+import Translator from "./Translator";
+import { stripHtmlTags } from "@/utils/stringUtils";
 
 export default function MessageView({ content }: { content: MessageToSend }) {
   return (
@@ -22,13 +24,14 @@ export default function MessageView({ content }: { content: MessageToSend }) {
           <p className="text-sm">{formatDateTime(content?.sendDateTime)}</p>
         </div>
       </div>
-      <div className="font-semibold text-sm">{content?.object}</div>
-      
-        <div
-          className="leading-6 text-sm"
-          dangerouslySetInnerHTML={{ __html: content?.body }}
-        ></div>
-      
+      <div className="flex justify-between items-center">
+        <div className="font-semibold text-sm">{content?.object}</div>
+        <Translator text={stripHtmlTags(content.body)}/>
+      </div>
+      <div
+        className="leading-6 text-sm"
+        dangerouslySetInnerHTML={{ __html: content?.body }}
+      ></div>
       <div className="flex flex-row gap-3 items-center text-sm">
         <Pdf name="document.pdf" />
         <Docs name="document.docx" />

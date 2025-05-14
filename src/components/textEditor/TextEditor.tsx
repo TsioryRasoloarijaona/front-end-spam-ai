@@ -69,55 +69,50 @@ export default function TextEditor() {
       body: code,
       receivers: recipients,
     };
-    console.log("Token:", token.replace(/"/g, ""));
-    console.log("Message Request:", messageRequest);
+
     try {
       await postMethod<MessageRequest>(
-      token.replace(/"/g, ""),
-      "send",
-      messageRequest
+        token.replace(/"/g, ""),
+        "send",
+        messageRequest
       );
-      
+
       toast.success("Message sent successfully");
-      
     } catch (error) {
-      console.error("Error sending message:", error);
       toast.error("Failed to send message");
     }
-  }
+  };
 
-    return (
-      <>
-        <form className="mt-4 space-y-4 w-full h-full" onSubmit={submit}>
-          <div className="w-full text-sm">
-            <RecipientInput onRecipientsChange={handleRecipientsChange} />{" "}
-            {/* Ajout de la fonction de rappel */}
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="object"
-              className="border-b border-b-gray-300 p-2 outline-none w-full text-sm"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setObject(e.target.value)
-              }
-            />
-          </div>
-          <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
-            <ReactQuill
-              theme="snow"
-              modules={modules}
-              formats={formats}
-              value={code}
-              onChange={handleProcedureContentChange}
-              className="w-full border-none"
-            />
-          </div>
-          <div>
-            <Button type="submit">send</Button>
-          </div>
-        </form>
-      </>
-    );
-  
+  return (
+    <>
+      <form className="mt-4 space-y-4 w-full h-full" onSubmit={submit}>
+        <div className="w-full text-sm">
+          <RecipientInput onRecipientsChange={handleRecipientsChange} />{" "}
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="object"
+            className="border-b border-b-gray-300 p-2 outline-none w-full text-sm"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setObject(e.target.value)
+            }
+          />
+        </div>
+        <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
+          <ReactQuill
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={code}
+            onChange={handleProcedureContentChange}
+            className="w-full border-none"
+          />
+        </div>
+        <div>
+          <Button type="submit">send</Button>
+        </div>
+      </form>
+    </>
+  );
 }
