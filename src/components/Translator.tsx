@@ -49,7 +49,7 @@ export default function Translator({ text }: { text: string }) {
         }}
       >
         <DialogTrigger asChild>
-          <button className="font-black px-3 bg-gray-300 text-black w-full py-2 rounded-full flex items-center gap-1.5 justify-center">
+          <button className="font-black px-3 text-xl text-black w-full py-2 rounded-full flex items-center gap-1.5 justify-center">
             <MdTranslate />
           </button>
         </DialogTrigger>
