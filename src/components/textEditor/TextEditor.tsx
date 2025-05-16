@@ -8,8 +8,9 @@ import MessageRequest from "@/interfaces/MessageRequestInterface";
 import { postMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
+import { BeatLoader } from "react-spinners";
 
-export default function TextEditor() {
+export default function TextEditor({ onCloseDialog }: { onCloseDialog?: () => void }) {
   const myColors = [
     "purple",
     "#785412",
@@ -49,6 +50,7 @@ export default function TextEditor() {
   const [code, setCode] = useState("");
   const [recipients, setRecipients] = useState<string[]>([]);
   const [object, setObject] = useState<string>("");
+  const [buttonSate, setButtonState] = useState(true);
 
   const handleProcedureContentChange = (content: any) => {
     setCode(content);
@@ -63,6 +65,7 @@ export default function TextEditor() {
   const token: string = Cookies.get("authToken") || "";
 
   const submit = async (e: React.FormEvent) => {
+    setButtonState(false)
     e.preventDefault();
     const messageRequest: MessageRequest = {
       object: object,
@@ -78,8 +81,10 @@ export default function TextEditor() {
       );
 
       toast.success("Message sent successfully");
+      if (onCloseDialog) onCloseDialog();
     } catch (error) {
       toast.error("Failed to send message");
+      setButtonState(true)
     }
   };
 
@@ -110,7 +115,9 @@ export default function TextEditor() {
           />
         </div>
         <div>
-          <Button type="submit">send</Button>
+            <Button type="submit" disabled={!buttonSate}>
+            {buttonSate ? "send" : <BeatLoader color="#ffffff" size={5}/>}
+          </Button>
         </div>
       </form>
     </>
