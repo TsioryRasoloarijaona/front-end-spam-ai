@@ -17,3 +17,22 @@ export interface MessageToSend {
     body : string ;
     sendDateTime : string ;
 }
+
+export interface messagesPage {
+  content : MessageToSend[] ,
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      sorted: boolean;
+      empty: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  last: boolean;
+  totalElements: number;
+  totalPages: number;
+}

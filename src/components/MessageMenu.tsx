@@ -28,9 +28,9 @@ export default function MessageMenu({ body, body2 }: MessageMenuProps) {
             <span>{body.accountDTO?.email}</span>
             <span>{timeAgo(body.sendDateTime)}</span>
           </p>
-          <p className="mb-2 text-sm font-semibold ">{body.object}</p>
+          <p className="mb-2 text-sm font-semibold ">object : {body.object}</p>
           <p className="truncate overflow-y-hidden text-ellipsis text-sm flex items-center justify-between">
-            <span>{stripHtmlTags(body.body)}</span>
+            <span>body : {stripHtmlTags(body.body)}</span>
             <MdAttachFile className="text-xl text-gray-400" />
           </p>
         </div>
@@ -66,9 +66,9 @@ export default function MessageMenu({ body, body2 }: MessageMenuProps) {
               {body2.sendDateTime ? timeAgo(body2.sendDateTime) : ""}
             </span>
           </div>
-          <p className="mb-2 text-sm font-bold ">{body2.object}</p>
+          <p className="mb-2 text-sm font-bold ">obj : {body2.object}</p>
           <p className="truncate overflow-y-hidden text-ellipsis text-sm flex items-center justify-between">
-            <span>{stripHtmlTags(body2.body)}</span>
+            <span>content : {stripHtmlTags(body2.body)}</span>
           </p>
         </div>
       </div>

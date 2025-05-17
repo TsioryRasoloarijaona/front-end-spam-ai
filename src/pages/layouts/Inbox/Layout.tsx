@@ -7,28 +7,29 @@ import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
 import { useWebSocket } from "../../../hooks/webSocketContext";
-
-interface ListMenuProps {
-  menu: React.ReactNode;
-  id : number;
-}
+import { messagesPage } from "@/interfaces/dataTypes";
+import { ListMenuProps } from "./ListMenu";
+import { usePageStore } from "@/hooks/pageStore";
 
 export default function Layout() {
-  const listMenu : ListMenuProps[] = [];
+  const listMenu: ListMenuProps[] = [];
   const [emails, setEmails] = useState<MessageToSend[]>();
   const { messages } = useWebSocket();
+  const { setTotalPage, currentPage } = usePageStore();
 
   const token: string = Cookies.get("authToken") || "";
+  const page: number = currentPage - 1;
 
   const getEmails = async () => {
     try {
-      const res: MessageToSend[] = await getMethod<MessageToSend[]>(
+      const res: messagesPage = await getMethod<messagesPage>(
         token,
-        "api/account/messages",
+        "api/account/messages/" + page,
         null
       );
       console.log("User data:", res);
-      setEmails(res);
+      setEmails(res.content);
+      setTotalPage(res.totalPages);
     } catch (error: any) {
       console.error("Error response:", error.response);
     }
@@ -37,15 +38,16 @@ export default function Layout() {
   useEffect(() => {
     console.log(token);
     getEmails();
-  }, []);
+  }, [currentPage]);
 
-  const allMessages = [...messages, ...(emails || [])];
+  
+  const allMessages =currentPage == 1 ? [...(messages || []), ...(emails || [])] : [...(emails || [])];
 
   if (Array.isArray(allMessages) && allMessages.length > 0) {
-    allMessages?.forEach((email) => {
+    allMessages.forEach((email) => {
       listMenu.push({
-        menu : <MessageMenu body={email}/> ,
-        id : email.id
+        menu: <MessageMenu body={email} />,
+        id: email.id,
       });
     });
   }
@@ -53,7 +55,7 @@ export default function Layout() {
   return (
     <Sections
       menu={<ListMenu param={listMenu} />}
-      view={<Outlet context={{allMessages}} />}
+      view={<Outlet context={{ allMessages }} />}
     />
   );
 }

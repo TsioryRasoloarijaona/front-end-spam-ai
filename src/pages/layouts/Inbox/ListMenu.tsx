@@ -1,17 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { IoFilterOutline } from "react-icons/io5";
+import { usePageStore } from "@/hooks/pageStore";
 
-interface ListMenuProps {
+export interface ListMenuProps {
   menu: React.ReactNode;
   id: number;
 }
@@ -19,34 +10,31 @@ interface ListMenuProps {
 export default function ListMenu({ param }: { param: ListMenuProps[] }) {
   const [selected, setSelected] = useState(0);
 
+  const { setCurrentPage, currentPage, totalPage } = usePageStore();
+
   return (
     <>
-      <div className="py-5 px-3 flex items-center justify-between">
-        <div className="w-full flex items-center gap-2 ">
-          <input
-            type="text"
-            className="p-2 w-3/4 border border-gray-300 rounded-md text-sm"
-            placeholder="search"
-          />
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="filter" />
-              <IoFilterOutline className="text-gray-500 text-3xl" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>filter</SelectLabel>
-                <SelectItem value="apple">email</SelectItem>
-                <SelectItem value="banana">object</SelectItem>
-                <SelectItem value="blueberry">content</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+      
+        <div className="flex px-7 justify-end items-center py-4 sticky top-0 bg-white z-10">
+          {Array.from({ length: totalPage }, (_, i) => (
+            <button
+              key={i}
+              className={`px-3 py-1 rounded-md text-sm ${
+          currentPage === i + 1 ? "border border-gray-400" : ""
+              }`}
+              onClick={() => {
+          setCurrentPage(i + 1);
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
-      </div>
-      <ul>
+      
+
+      <ul className="">
         {param.map((param, i) => (
-          <li
+          <div
             className={`border-b border-gray-200 ${
               selected == i ? "bg-[rgb(233,233,236)]" : ""
             }`}
@@ -54,7 +42,7 @@ export default function ListMenu({ param }: { param: ListMenuProps[] }) {
             onClick={() => setSelected(i)}
           >
             <Link to={param.id.toString()}>{param.menu}</Link>
-          </li>
+          </div>
         ))}
       </ul>
     </>

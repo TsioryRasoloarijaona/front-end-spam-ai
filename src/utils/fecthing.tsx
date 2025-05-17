@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL;
 export async function getMethod<T>(
   token: string | null,
   urlSppecification: string,
-  paramsOrVariable: string | null
+  paramsOrVariable: string | number | null
 ): Promise<T> {
   try {
     const cleanToken = token?.replace(/"/g, "");
