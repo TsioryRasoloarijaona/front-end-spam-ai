@@ -21,11 +21,11 @@ export default function MessageMenu({ body, body2 }: MessageMenuProps) {
             )}, 50%, 30%)`,
           }}
         >
-          <p>{`${body.accountDTO?.peopleInfoDTO?.firstName[0]}${body.accountDTO?.peopleInfoDTO?.lastName[0]}`}</p>
+          <p>{`${body.firstName[0]}${body.lastName[0]}`}</p>
         </div>
         <div className="w-11/12 ">
           <p className="font-semibold text-black text-sm flex items-center justify-between">
-            <span>{body.accountDTO?.email}</span>
+            <span>{body.email}</span>
             <span>{timeAgo(body.sendDateTime)}</span>
           </p>
           <p className="mb-2 text-sm font-semibold ">object : {body.object}</p>
