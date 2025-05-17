@@ -24,7 +24,7 @@ export default function Layout() {
     try {
       const res: messagesPage = await getMethod<messagesPage>(
         token,
-        "api/account/messages/" + page,
+        "messages/" + page,
         null
       );
       console.log("User data:", res);

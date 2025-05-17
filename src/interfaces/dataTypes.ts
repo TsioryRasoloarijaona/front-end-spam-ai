@@ -11,11 +11,13 @@ export interface AccountDTO {
 }
 
 export interface MessageToSend {
-    id : number ;
-    accountDTO : AccountDTO ;
-    object : string ;
-    body : string ;
-    sendDateTime : string ;
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    object: string;
+    body: string;
+    sendDateTime: string;
 }
 
 export interface messagesPage {

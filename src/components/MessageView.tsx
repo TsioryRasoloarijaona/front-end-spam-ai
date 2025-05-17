@@ -32,11 +32,11 @@ export default function MessageView({ content, content1 }: MessageViewProps) {
         <div className="flex justify-between">
           <div className="flex gap-3 items-center">
             <div className="bg-[rgb(236,236,240)] text-black font-bold w-[40px] h-[40px] rounded-full flex items-center justify-center uppercase">
-              <p>{`${content.accountDTO?.peopleInfoDTO?.firstName[0]}${content.accountDTO?.peopleInfoDTO?.lastName[0]}`}</p>
+              <p>{`${content.firstName[0]}${content.lastName[0]}`}</p>
             </div>
             <div className="text-sm">
-              <p>{`${content.accountDTO?.peopleInfoDTO?.firstName} ${content.accountDTO?.peopleInfoDTO?.lastName}`}</p>
-              <p className="font-bold">{content?.accountDTO?.email}</p>
+              <p>{`${content.firstName} ${content.lastName}`}</p>
+              <p className="font-bold">{content.email}</p>
             </div>
           </div>
           <div>
