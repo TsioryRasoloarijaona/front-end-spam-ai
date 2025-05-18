@@ -1,8 +1,7 @@
 import { Outlet } from "react-router";
 import Sections from "@/components/Sections";
 import ListMenu from "./ListMenu";
-import { MessageToSend } from "@/interfaces/dataTypes";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
@@ -10,25 +9,25 @@ import { useWebSocket } from "../../../hooks/webSocketContext";
 import { messagesPage } from "@/interfaces/dataTypes";
 import { ListMenuProps } from "./ListMenu";
 import { usePageStore } from "@/hooks/pageStore";
+import useMailStore from "@/hooks/emailStore";
 
 export default function Layout() {
   const listMenu: ListMenuProps[] = [];
-  const [emails, setEmails] = useState<MessageToSend[]>();
+
   const { messages } = useWebSocket();
-  const { setTotalPage, currentPage } = usePageStore();
+  const { currentPage, setTotalPage } = usePageStore();
+  const { addMail, mails } = useMailStore();
 
   const token: string = Cookies.get("authToken") || "";
-  const page: number = currentPage - 1;
 
   const getEmails = async () => {
     try {
       const res: messagesPage = await getMethod<messagesPage>(
         token,
-        "messages/" + page,
+        `messages/${currentPage - 1}`,
         null
       );
-      console.log("User data:", res);
-      setEmails(res.content);
+      addMail(currentPage - 1, res.content);
       setTotalPage(res.totalPages);
     } catch (error: any) {
       console.error("Error response:", error.response);
@@ -36,12 +35,17 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    console.log(token);
-    getEmails();
+    if (mails[currentPage - 1]) {
+      return;
+    } else {
+      getEmails();
+    }
   }, [currentPage]);
 
-  
-  const allMessages =currentPage == 1 ? [...(messages || []), ...(emails || [])] : [...(emails || [])];
+  const allMessages =
+    currentPage == 1
+      ? [...(messages || []), ...(mails[0] || [])]
+      : [...(mails[currentPage - 1] || [])];
 
   if (Array.isArray(allMessages) && allMessages.length > 0) {
     allMessages.forEach((email) => {

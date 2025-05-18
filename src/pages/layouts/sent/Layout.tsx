@@ -27,7 +27,6 @@ export default function Layout() {
         "sent",
         null
       );
-      console.log("User data:", res);
       setEmails(res);
     } catch (error: any) {
       console.error("Error response:", error.response);
@@ -35,7 +34,6 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    console.log(token);
     getEmails();
   }, []);
 
