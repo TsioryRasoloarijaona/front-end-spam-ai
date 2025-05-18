@@ -10,27 +10,57 @@ export interface ListMenuProps {
 export default function ListMenu({ param }: { param: ListMenuProps[] }) {
   const [selected, setSelected] = useState(0);
 
-  const { setCurrentPage, currentPage, totalPage } = usePageStore();
+  const { incrementPage,decrementPage, currentPage , totalPage } = usePageStore();
 
   return (
     <>
-      
-        <div className="flex px-7 justify-end items-center py-4 sticky top-0 bg-white z-10">
-          {Array.from({ length: totalPage }, (_, i) => (
-            <button
-              key={i}
-              className={`px-3 py-1 rounded-md text-sm ${
-          currentPage === i + 1 ? "border border-gray-400" : ""
-              }`}
-              onClick={() => {
-          setCurrentPage(i + 1);
-              }}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
-      
+      <div className="flex px-7 justify-end items-center py-4 sticky top-0 bg-white z-10 gap-2">
+        <button
+          className="px-3 py-1 rounded-md text-sm border border-gray-300 disabled:opacity-50"
+          onClick={() => decrementPage()}
+          disabled={currentPage === 1}
+          aria-label="Previous page"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <span className="mx-2 text-sm">
+          Page {currentPage} / {totalPage}
+        </span>
+        <button
+          className="px-3 py-1 rounded-md text-sm border border-gray-300 disabled:opacity-50"
+          onClick={() => incrementPage()}
+          disabled={currentPage === totalPage}
+          aria-label="Next page"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
 
       <ul className="">
         {param.map((param, i) => (
