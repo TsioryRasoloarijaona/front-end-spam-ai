@@ -24,8 +24,8 @@ export default function MessageMenu({ body, body2 }: MessageMenuProps) {
           <p>{`${body.firstName[0]}${body.lastName[0]}`}</p>
         </div>
         <div className="w-11/12 ">
-          <p className="font-semibold text-black text-sm flex items-center justify-between">
-            <span>{body.email}</span>
+          <p className=" text-black text-sm flex items-center justify-between">
+            <span className="font-semibold">{body.email}</span>
             <span>{timeAgo(body.sendDateTime)}</span>
           </p>
           <p className="mb-2 text-sm font-semibold ">object : {body.object}</p>

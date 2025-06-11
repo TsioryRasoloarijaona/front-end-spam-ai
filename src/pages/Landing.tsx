@@ -40,10 +40,10 @@ export default function MailyLandingPage() {
                 </svg>
               </span>
             </div>
-            <Link to="/info" className="border border-teal-700 text-teal-700 hover:bg-teal-50 px-4 py-2 rounded-md">
+            <Link to="/signIn" className="border border-teal-700 text-teal-700 hover:bg-teal-50 px-4 py-2 rounded-md">
               Connexion
               </Link>
-            <Link to="/signIn" className="bg-teal-700 text-white hover:bg-teal-800 px-4 py-2 rounded-md">
+            <Link to="/Info" className="bg-teal-700 text-white hover:bg-teal-800 px-4 py-2 rounded-md">
               S'inscrire
               </Link>
           </div>
