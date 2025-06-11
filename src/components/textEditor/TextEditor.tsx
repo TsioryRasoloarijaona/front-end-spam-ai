@@ -9,8 +9,13 @@ import { postMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { BeatLoader } from "react-spinners";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 
-export default function TextEditor({ onCloseDialog }: { onCloseDialog?: () => void }) {
+export default function TextEditor({
+  onCloseDialog,
+}: {
+  onCloseDialog?: () => void;
+}) {
   const myColors = [
     "purple",
     "#785412",
@@ -65,7 +70,7 @@ export default function TextEditor({ onCloseDialog }: { onCloseDialog?: () => vo
   const token: string = Cookies.get("authToken") || "";
 
   const submit = async (e: React.FormEvent) => {
-    setButtonState(false)
+    setButtonState(false);
     e.preventDefault();
     const messageRequest: MessageRequest = {
       object: object,
@@ -84,7 +89,7 @@ export default function TextEditor({ onCloseDialog }: { onCloseDialog?: () => vo
       if (onCloseDialog) onCloseDialog();
     } catch (error) {
       toast.error("Failed to send message");
-      setButtonState(true)
+      setButtonState(true);
     }
   };
 
@@ -114,10 +119,21 @@ export default function TextEditor({ onCloseDialog }: { onCloseDialog?: () => vo
             className="w-full border-none"
           />
         </div>
-        <div>
-            <Button type="submit" disabled={!buttonSate}>
-            {buttonSate ? "send" : <BeatLoader color="#ffffff" size={5}/>}
+        <div className="flex gap-2.5">
+          <Button type="submit" disabled={!buttonSate}>
+            {buttonSate ? "send" : <BeatLoader color="#ffffff" size={5} />}
           </Button>
+          <button
+            type="button"
+            className="gap-2 p-2 bg-white border rounded shadow"
+          >
+            <FaWandMagicSparkles className="text-purple-600" />
+            <select className="bg-transparent outline-none">
+              <option value=""></option>
+              <option value="magic1">Magic Option 1</option>
+              <option value="magic2">Magic Option 2</option>
+            </select>
+          </button>
         </div>
       </form>
     </>

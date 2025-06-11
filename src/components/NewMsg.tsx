@@ -16,7 +16,7 @@ export default function NewMsg() {
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <button className="font-black px-3  bg-teal-700 text-white w-full py-2 rounded-md flex items-center gap-1.5 justify-center ">
+          <button className="font-semibold px-3  bg-teal-700 text-white w-full py-2 rounded-md flex items-center gap-1.5 justify-center ">
             <MessagesSquareIcon />
             new message
           </button>
