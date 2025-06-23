@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import Sections from "@/components/Sections";
 import ListMenu from "./ListMenu";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
