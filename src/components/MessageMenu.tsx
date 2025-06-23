@@ -1,6 +1,7 @@
 import { MessageStructure } from "@/interfaces/dataTypes";
 import { timeAgo } from "@/utils/converter";
 import { stripHtmlTags } from "@/utils/stringUtils";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 interface MessageMenuProps {
   body?: MessageStructure | null;
@@ -9,6 +10,7 @@ interface MessageMenuProps {
 
 export default function MessageMenu({ body, type }: MessageMenuProps) {
   let emailDisplay: React.ReactNode;
+  let trashIcon: React.ReactNode;
   if (type == "RECEIVED") {
     emailDisplay = (
       <div className="flex items-center -space-x-3">
@@ -27,6 +29,7 @@ export default function MessageMenu({ body, type }: MessageMenuProps) {
         </span>
       </div>
     );
+    trashIcon = (null) ;
   } else if (type == "SENT ") {
     emailDisplay = (
       <div className="flex items-center -space-x-3">
@@ -49,6 +52,7 @@ export default function MessageMenu({ body, type }: MessageMenuProps) {
         </span>
       </div>
     );
+    trashIcon = (body?.spam ? <FaRegTrashAlt/> : null) ;
   }
 
   return (
@@ -63,6 +67,7 @@ export default function MessageMenu({ body, type }: MessageMenuProps) {
         <p className="mb-2 text-sm font-bold ">obj : {body?.object}</p>
         <p className="truncate overflow-y-hidden text-ellipsis text-sm flex items-center justify-between">
           <span>content : {stripHtmlTags(body?.body ?? "")}</span>
+          {trashIcon}
         </p>
       </div>
     </div>
