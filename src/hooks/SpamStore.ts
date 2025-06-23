@@ -6,7 +6,7 @@ interface emailStore {
   addMail: (page: number, newMail: MessageStructure[]) => void;
 }
 
-const useMailStore = create<emailStore>((set) => ({
+const useSpamStore = create<emailStore>((set) => ({
   mails: {},
   addMail: (page, newMail) =>
     set((state) => ({
@@ -17,4 +17,4 @@ const useMailStore = create<emailStore>((set) => ({
     })),
 }));
 
-export default useMailStore;
+export default useSpamStore;

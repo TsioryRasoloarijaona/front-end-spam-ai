@@ -6,25 +6,27 @@ import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
 import { useWebSocket } from "@/hooks/webSocketContext";
-import { SentMessages } from "@/interfaces/SentMessages";
+import { MessageStructure } from "@/interfaces/dataTypes";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 interface ListMenuProps {
   menu: React.ReactNode;
-  id : number;
+  id: string;
 }
 
 export default function Layout() {
-  const listMenu : ListMenuProps[] = [];
-  const [emails, setEmails] = useState<SentMessages[]>();
+  const listMenu: ListMenuProps[] = [];
+  const [emails, setEmails] = useState<MessageStructure[]>();
   const { sentMessages } = useWebSocket();
+  const { email } = useEmailAddressStore();
 
   const token: string = Cookies.get("authToken") || "";
 
   const getEmails = async () => {
     try {
-      const res: SentMessages[] = await getMethod<SentMessages[]>(
+      const res: MessageStructure[] = await getMethod<MessageStructure[]>(
         token,
-        "sent",
+        `api/user/sent/${email}`,
         null
       );
       setEmails(res);
@@ -43,8 +45,8 @@ export default function Layout() {
   if (Array.isArray(allMessages) && allMessages.length > 0) {
     allMessages?.forEach((email) => {
       listMenu.push({
-        menu : <MessageMenu body2={email}/> ,
-        id : email.id
+        menu: <MessageMenu body={email} type="SENT " />,
+        id: email.id,
       });
     });
   }
@@ -52,8 +54,7 @@ export default function Layout() {
   return (
     <Sections
       menu={<ListMenu param={listMenu} />}
-      view={<Outlet context={{allMessages}} />}
+      view={<Outlet context={{ allMessages }} />}
     />
   );
 }
-

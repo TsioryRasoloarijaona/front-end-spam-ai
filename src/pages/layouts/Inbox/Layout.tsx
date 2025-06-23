@@ -10,6 +10,7 @@ import { messagesPage } from "@/interfaces/dataTypes";
 import { ListMenuProps } from "./ListMenu";
 import { usePageStore } from "@/hooks/pageStore";
 import useMailStore from "@/hooks/emailStore";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 export default function Layout() {
   const listMenu: ListMenuProps[] = [];
@@ -17,14 +18,17 @@ export default function Layout() {
   const { messages } = useWebSocket();
   const { currentPage, setTotalPage } = usePageStore();
   const { addMail, mails } = useMailStore();
+  const {email} = useEmailAddressStore() ;
+
 
   const token: string = Cookies.get("authToken") || "";
-
+  
   const getEmails = async () => {
+    if (!email || !email.includes("@")) return;
     try {
       const res: messagesPage = await getMethod<messagesPage>(
         token,
-        `messages/${currentPage - 1}`,
+        `api/user/received/${email}/${currentPage - 1}/${false}`,
         null
       );
       addMail(currentPage - 1, res.content);
@@ -35,12 +39,13 @@ export default function Layout() {
   };
 
   useEffect(() => {
+    if (!email || !email.includes("@")) return;
     if (mails[currentPage - 1]) {
       return;
     } else {
       getEmails();
     }
-  }, [currentPage]);
+  }, [email , currentPage]);
 
   const allMessages =
     currentPage == 1
@@ -50,7 +55,7 @@ export default function Layout() {
   if (Array.isArray(allMessages) && allMessages.length > 0) {
     allMessages.forEach((email) => {
       listMenu.push({
-        menu: <MessageMenu body={email} />,
+        menu: <MessageMenu body={email} type="RECEIVED" />,
         id: email.id,
       });
     });
@@ -59,7 +64,7 @@ export default function Layout() {
   return (
     <Sections
       menu={<ListMenu param={listMenu} />}
-      view={<Outlet context={{ allMessages }} />}
+      view={<Outlet/>}
     />
   );
 }

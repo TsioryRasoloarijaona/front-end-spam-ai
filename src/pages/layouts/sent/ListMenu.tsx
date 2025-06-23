@@ -13,7 +13,7 @@ import { IoFilterOutline } from "react-icons/io5";
 
 interface ListMenuProps {
   menu: React.ReactNode;
-  id: number;
+  id: string;
 }
 
 export default function ListMenu({ param }: { param: ListMenuProps[] }) {

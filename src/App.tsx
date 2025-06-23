@@ -9,6 +9,7 @@ import LayoutSent from "./pages/layouts/sent/Layout";
 import LayoutSpam from "./pages/layouts/spam/Layout";
 import InboxView from "./pages/layouts/Inbox/InboxView";
 import InboxViewSent from "./pages/layouts/sent/InboxView";
+import InboxViewSpam from "./pages/layouts/spam/InboxView"
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import Creation from "./pages/Creation";
@@ -31,7 +32,9 @@ function App() {
             <Route path="sent" element={<LayoutSent />} >
               <Route index path=":id" element={<InboxViewSent />} />
             </Route>
-            <Route path="spam" element={<LayoutSpam />} />
+            <Route path="spam" element={<LayoutSpam />} >
+              <Route index path=":id" element={<InboxViewSpam/>}/>
+            </Route>
           </Route>
         </Routes>
       </WebSocketProvider>

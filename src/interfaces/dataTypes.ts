@@ -7,21 +7,38 @@ export interface PeopleInfoDTO {
 
 export interface AccountDTO {
   email: string;
-  peopleInfoDTO: PeopleInfoDTO; 
+  peopleInfoDTO: PeopleInfoDTO;
 }
 
 export interface MessageToSend {
-    id: number;
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  object: string;
+  body: string;
+  sendDateTime: string;
+}
+
+export interface MessageStructure {
+  id: string;
+  object: string;
+  body: string;
+  sendDateTime: string;
+  messageSender: {
     email: string;
-    firstName: string;
-    lastName: string;
-    object: string;
-    body: string;
-    sendDateTime: string;
+    type: string;
+  };
+  receivers: Array<{
+    email: string;
+    type: string;
+    status: string;
+  }>;
+  spam: boolean;
 }
 
 export interface messagesPage {
-  content : MessageToSend[] ,
+  content: MessageStructure[];
   pageable: {
     pageNumber: number;
     pageSize: number;

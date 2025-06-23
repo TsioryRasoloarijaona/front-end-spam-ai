@@ -9,13 +9,15 @@ import Cookies from "js-cookie";
 import { getMethod } from "@/utils/fecthing";
 import { AccountDTO } from "@/interfaces/dataTypes";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import  AppSideBar  from "@/components/AppSideBar";
+import AppSideBar from "@/components/AppSideBar";
 import { CustomTrigger } from "@/components/CustomTrigger";
 import NewMsg from "@/components/NewMsg";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 export default function Layout() {
   const [user, setUser] = useState<AccountDTO>();
   const token: string = Cookies.get("authToken") || "";
+  const { setEmail } = useEmailAddressStore();
 
   const getUser = async () => {
     try {
@@ -26,6 +28,7 @@ export default function Layout() {
       );
       console.log("User data:", res);
       setUser(res);
+      setEmail(res.email);
     } catch (error: any) {
       console.error("Error response:", error.response);
     }
