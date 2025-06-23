@@ -1,13 +1,12 @@
 import React, { createContext, useState, useContext, useRef } from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { MessageToSend } from "@/interfaces/dataTypes";
-import { SentMessages } from "@/interfaces/SentMessages";
+import { MessageStructure } from "@/interfaces/dataTypes";
 
 interface WebSocketContextType {
-  messages: MessageToSend[];
-  sentMessages: SentMessages[];
-  sendMessage: (message: MessageToSend) => void;
+  messages: MessageStructure[];
+  sentMessages: MessageStructure[];
+  spamMessages : MessageStructure[] ;
   connectWebSocket: (token: string) => void;
   disconnectWebSocket: () => void;
 }
@@ -30,8 +29,10 @@ export const useWebSocket = () => {
 export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [messages, setMessages] = useState<MessageToSend[]>([]);
-  const [sentMessages, setSentMessages] = useState<SentMessages[]>([]); // Ajout de l'état pour les messages envoyés
+  const [messages, setMessages] = useState<MessageStructure[]>([]);
+  const [sentMessages, setSentMessages] = useState<MessageStructure[]>([]);
+  const [spamMessages, setSpamMessages] = useState<MessageStructure[]>([]);
+   // Ajout de l'état pour les messages envoyés
   const stompClientRef = useRef<Stomp.Client | null>(null);
 
   const connectWebSocket = (token: string) => {
@@ -56,28 +57,20 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
         });
 
         stompClient.subscribe("/user/queue/sent", (message) => {
-          const sentMessage: SentMessages = JSON.parse(message.body);
-          setSentMessages((prev) => [sentMessage, ...prev]); 
+          const sentMessage: MessageStructure = JSON.parse(message.body);
+          setSentMessages((prev) => [sentMessage, ...prev]);
           console.log("✉️ Sent message reçu :", sentMessage);
+        });
+        stompClient.subscribe("/user/queue/spam", (message) => {
+          const spamMessages: MessageStructure = JSON.parse(message.body);
+          setSpamMessages((prev) => [spamMessages, ...prev]);
+          console.log("✉️ Sent message reçu :", spamMessages);
         });
       },
       (error) => {
         console.error("❌ Erreur WebSocket :", error);
       }
     );
-  };
-
-  const sendMessage = (message: MessageToSend) => {
-    if (stompClientRef.current && stompClientRef.current.connected) {
-      stompClientRef.current.send(
-        "/app/chat/private",
-        {},
-        JSON.stringify(message)
-      );
-      console.log("📤 Message envoyé :", message);
-    } else {
-      console.error("🚫 Impossible d'envoyer, WebSocket non connecté.");
-    }
   };
 
   const disconnectWebSocket = () => {
@@ -94,7 +87,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         messages,
         sentMessages,
-        sendMessage,
+        spamMessages , 
         connectWebSocket,
         disconnectWebSocket,
       }}

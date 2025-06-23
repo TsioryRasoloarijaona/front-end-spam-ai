@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { usePageStore } from "@/hooks/pageStore";
+import { usePageStoreSpam } from "@/hooks/pageStoreSpam";
 
 export interface ListMenuProps {
   menu: React.ReactNode;
@@ -11,7 +11,7 @@ export default function ListMenu({ param }: { param: ListMenuProps[] }) {
   const [selected, setSelected] = useState(0);
 
   const { incrementPage, decrementPage, currentPage, totalPage } =
-    usePageStore();
+    usePageStoreSpam();
 
   return (
     <>

@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { BeatLoader } from "react-spinners";
 import { FaWandMagicSparkles } from "react-icons/fa6";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 export default function TextEditor({
   onCloseDialog,
@@ -56,6 +57,7 @@ export default function TextEditor({
   const [recipients, setRecipients] = useState<string[]>([]);
   const [object, setObject] = useState<string>("");
   const [buttonSate, setButtonState] = useState(true);
+  const {email} = useEmailAddressStore()
 
   const handleProcedureContentChange = (content: any) => {
     setCode(content);
@@ -73,6 +75,7 @@ export default function TextEditor({
     setButtonState(false);
     e.preventDefault();
     const messageRequest: MessageRequest = {
+      sender : email ,
       object: object,
       body: code,
       receivers: recipients,
@@ -81,7 +84,7 @@ export default function TextEditor({
     try {
       await postMethod<MessageRequest>(
         token.replace(/"/g, ""),
-        "send",
+        "insert",
         messageRequest
       );
 

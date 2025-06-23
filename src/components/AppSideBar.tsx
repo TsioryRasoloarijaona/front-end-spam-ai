@@ -49,7 +49,7 @@ const AppSideBar: React.FC = () => {
   ];
 
   return (
-    <Sidebar collapsible="icon" className="bg-white">
+    <Sidebar collapsible="icon" className="bg-[#EEF0F2]">
       <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarGroupLabel className="mb-7 text-xl text-black font-bold">
