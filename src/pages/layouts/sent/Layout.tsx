@@ -8,6 +8,7 @@ import MessageMenu from "@/components/MessageMenu";
 import { useWebSocket } from "@/hooks/webSocketContext";
 import { MessageStructure } from "@/interfaces/dataTypes";
 import { useEmailAddressStore } from "@/hooks/emailAddressStore";
+import useSentMailStore from "@/hooks/sentMailStore";
 
 interface ListMenuProps {
   menu: React.ReactNode;
@@ -16,9 +17,10 @@ interface ListMenuProps {
 
 export default function Layout() {
   const listMenu: ListMenuProps[] = [];
-  const [emails, setEmails] = useState<MessageStructure[]>();
+ 
   const { sentMessages } = useWebSocket();
   const { email } = useEmailAddressStore();
+  const { addMail , sentMails } = useSentMailStore();
 
   const token: string = Cookies.get("authToken") || "";
 
@@ -29,7 +31,8 @@ export default function Layout() {
         `api/user/sent/${email}`,
         null
       );
-      setEmails(res);
+     
+      addMail(res);
     } catch (error: any) {
       console.error("Error response:", error.response);
     }
@@ -39,7 +42,7 @@ export default function Layout() {
     getEmails();
   }, []);
 
-  const allMessages = [...sentMessages, ...(emails || [])];
+  const allMessages = [...sentMessages, ...(sentMails || [])];
   console.log("allMessages", allMessages);
 
   if (Array.isArray(allMessages) && allMessages.length > 0) {

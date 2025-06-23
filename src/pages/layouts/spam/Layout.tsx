@@ -25,7 +25,7 @@ export default function Layout() {
   const token: string = Cookies.get("authToken") || "";
   
   const getEmails = async () => {
-    if (!email || !email.includes("@")) return;
+
     try {
       const res: messagesPage = await getMethod<messagesPage>(
         token,
@@ -40,7 +40,6 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    if (!email || !email.includes("@")) return;
     if (mails[currentPage - 1]) {
       return;
     } else {
