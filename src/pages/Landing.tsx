@@ -92,7 +92,7 @@ export default function MailyLandingPage() {
             <div className="relative">
               <div className="rounded-2xl shadow-2xl bg-white overflow-hidden border border-gray-100">
                 <img 
-                  src="public/freepik__upload__49375.png" 
+                  src="/freepik__upload__49375.png" 
                   alt="Aperçu de l'application Maily"
                   className="w-full h-auto transition duration-300 hover:scale-105 hover:shadow-2xl"
                   style={{ minWidth: "320px", minHeight: "200px", objectFit: "cover" }}
