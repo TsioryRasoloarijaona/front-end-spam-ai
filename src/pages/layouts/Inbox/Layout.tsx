@@ -1,51 +1,62 @@
 import { Outlet } from "react-router";
 import Sections from "@/components/Sections";
 import ListMenu from "./ListMenu";
-import { MessageToSend } from "@/interfaces/dataTypes";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import MessageMenu from "@/components/MessageMenu";
-import { useWebSocket } from "./webSocketContext";
-
-interface ListMenuProps {
-  menu: React.ReactNode;
-  id : number;
-}
+import { useWebSocket } from "../../../hooks/webSocketContext";
+import { messagesPage } from "@/interfaces/dataTypes";
+import { ListMenuProps } from "./ListMenu";
+import { usePageStore } from "@/hooks/pageStore";
+import useMailStore from "@/hooks/emailStore";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 export default function Layout() {
-  const listMenu : ListMenuProps[] = [];
-  const [emails, setEmails] = useState<MessageToSend[]>();
+  const listMenu: ListMenuProps[] = [];
+
   const { messages } = useWebSocket();
+  const { currentPage, setTotalPage } = usePageStore();
+  const { addMail, mails } = useMailStore();
+  const {email} = useEmailAddressStore() ;
+
 
   const token: string = Cookies.get("authToken") || "";
-
+  
   const getEmails = async () => {
+    if (!email || !email.includes("@")) return;
     try {
-      const res: MessageToSend[] = await getMethod<MessageToSend[]>(
+      const res: messagesPage = await getMethod<messagesPage>(
         token,
-        "api/account/messages",
+        `api/user/received/${email}/${currentPage - 1}/${false}`,
         null
       );
-      console.log("User data:", res);
-      setEmails(res);
+      addMail(currentPage - 1, res.content);
+      setTotalPage(res.totalPages);
     } catch (error: any) {
       console.error("Error response:", error.response);
     }
   };
 
   useEffect(() => {
-    console.log(token);
-    getEmails();
-  }, []);
+    if (!email || !email.includes("@")) return;
+    if (mails[currentPage - 1]) {
+      return;
+    } else {
+      getEmails();
+    }
+  }, [email , currentPage]);
 
-  const allMessages = [...(emails || []), ...messages];
+  const allMessages =
+    currentPage == 1
+      ? [...(messages || []), ...(mails[0] || [])]
+      : [...(mails[currentPage - 1] || [])];
 
   if (Array.isArray(allMessages) && allMessages.length > 0) {
-    allMessages?.forEach((email) => {
+    allMessages.forEach((email) => {
       listMenu.push({
-        menu : <MessageMenu body={email}/> ,
-        id : email.id
+        menu: <MessageMenu body={email} type="RECEIVED" />,
+        id: email.id,
       });
     });
   }
@@ -53,7 +64,7 @@ export default function Layout() {
   return (
     <Sections
       menu={<ListMenu param={listMenu} />}
-      view={<Outlet context={{allMessages}} />}
+      view={<Outlet/>}
     />
   );
 }

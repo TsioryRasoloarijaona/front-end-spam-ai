@@ -1,52 +1,78 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { IoFilterOutline } from "react-icons/io5";
+import { usePageStore } from "@/hooks/pageStore";
 
-interface ListMenuProps {
+export interface ListMenuProps {
   menu: React.ReactNode;
-  id: number;
+  id: string;
 }
 
 export default function ListMenu({ param }: { param: ListMenuProps[] }) {
   const [selected, setSelected] = useState(0);
 
+  const { incrementPage, decrementPage, currentPage, totalPage } =
+    usePageStore();
+
   return (
     <>
-      <div className="py-5 px-3 flex items-center justify-between">
-        <div className="w-full flex items-center gap-2 ">
-          <input
-            type="text"
-            className="p-2 w-3/4 border border-gray-300 rounded-md text-sm"
-            placeholder="search"
-          />
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="filter" />
-              <IoFilterOutline className="text-gray-500 text-3xl" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>filter</SelectLabel>
-                <SelectItem value="apple">email</SelectItem>
-                <SelectItem value="banana">object</SelectItem>
-                <SelectItem value="blueberry">content</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+      <div className="flex px-7 justify-between items-center py-4 sticky top-0 bg-white z-10 gap-2">
+        <div className=" flex items-center justify-between text-sm">
+          <p className="px-3 py-1 border rounded-full text-gray-600 border-gray-600 text-sm">
+            dash / inbox
+          </p>
+        </div>
+        <div>
+          <button
+            className="px-3 py-1 rounded-md text-sm border border-gray-300 disabled:opacity-50"
+            onClick={() => decrementPage()}
+            disabled={currentPage === 1}
+            aria-label="Previous page"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <span className="mx-2 text-sm">
+            Page {currentPage} / {totalPage}
+          </span>
+          <button
+            className="px-3 py-1 rounded-md text-sm border border-gray-300 disabled:opacity-50"
+            onClick={() => incrementPage()}
+            disabled={currentPage === totalPage}
+            aria-label="Next page"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-      <ul>
+
+      <ul className="">
         {param.map((param, i) => (
-          <li
+          <div
             className={`border-b border-gray-200 ${
               selected == i ? "bg-[rgb(233,233,236)]" : ""
             }`}
@@ -54,7 +80,7 @@ export default function ListMenu({ param }: { param: ListMenuProps[] }) {
             onClick={() => setSelected(i)}
           >
             <Link to={param.id.toString()}>{param.menu}</Link>
-          </li>
+          </div>
         ))}
       </ul>
     </>
