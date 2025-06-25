@@ -4,8 +4,19 @@ import "react-quill/dist/quill.snow.css";
 import "./style.css";
 import RecipientInput from "../RecipientInput";
 import { Button } from "../ui/button";
+import MessageRequest from "@/interfaces/MessageRequestInterface";
+import { postMethod } from "@/utils/fecthing";
+import Cookies from "js-cookie";
+import { toast } from "sonner";
+import { BeatLoader } from "react-spinners";
+import { FaWandMagicSparkles } from "react-icons/fa6";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
-export default function TextEditor() {
+export default function TextEditor({
+  onCloseDialog,
+}: {
+  onCloseDialog?: () => void;
+}) {
   const myColors = [
     "purple",
     "#785412",
@@ -43,17 +54,63 @@ export default function TextEditor() {
   ];
 
   const [code, setCode] = useState("");
+  const [recipients, setRecipients] = useState<string[]>([]);
+  const [object, setObject] = useState<string>("");
+  const [buttonSate, setButtonState] = useState(true);
+  const {email} = useEmailAddressStore()
+
   const handleProcedureContentChange = (content: any) => {
     setCode(content);
+    console.log("Content:", content);
   };
+
+  const handleRecipientsChange = (newRecipients: string[]) => {
+    setRecipients(newRecipients);
+    console.log("Recipients:", newRecipients);
+  };
+
+  const token: string = Cookies.get("authToken") || "";
+
+  const submit = async (e: React.FormEvent) => {
+    setButtonState(false);
+    e.preventDefault();
+    const messageRequest: MessageRequest = {
+      sender : email ,
+      object: object,
+      body: code,
+      receivers: recipients,
+    };
+
+    try {
+      await postMethod<MessageRequest>(
+        token.replace(/"/g, ""),
+        "insert",
+        messageRequest
+      );
+
+      toast.success("Message sent successfully");
+      if (onCloseDialog) onCloseDialog();
+    } catch (error) {
+      toast.error("Failed to send message");
+      setButtonState(true);
+    }
+  };
+
   return (
     <>
-      <div className="mt-4 space-y-4 w-full h-full">
+      <form className="mt-4 space-y-4 w-full h-full" onSubmit={submit}>
         <div className="w-full text-sm">
-          <RecipientInput />
+          <RecipientInput onRecipientsChange={handleRecipientsChange} />{" "}
         </div>
         <div>
-          <input type="text" placeholder="object" className="border-b border-b-gray-300 p-2 outline-none w-full text-sm" />
+          <input
+            type="text"
+            placeholder="object"
+            className="border-b border-b-gray-300 p-2 outline-none w-full text-sm"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setObject(e.target.value)
+            }
+          />
         </div>
         <div className="w-full relative flex-1  min-h-[325px] max-h-[375px]">
           <ReactQuill
@@ -65,10 +122,23 @@ export default function TextEditor() {
             className="w-full border-none"
           />
         </div>
-        <div>
-          <Button>send</Button>
+        <div className="flex gap-2.5">
+          <Button type="submit" disabled={!buttonSate}>
+            {buttonSate ? "send" : <BeatLoader color="#ffffff" size={5} />}
+          </Button>
+          <button
+            type="button"
+            className="gap-2 p-2 bg-white border rounded shadow"
+          >
+            <FaWandMagicSparkles className="text-purple-600" />
+            <select className="bg-transparent outline-none">
+              <option value=""></option>
+              <option value="magic1">Magic Option 1</option>
+              <option value="magic2">Magic Option 2</option>
+            </select>
+          </button>
         </div>
-      </div>
+      </form>
     </>
   );
 }
