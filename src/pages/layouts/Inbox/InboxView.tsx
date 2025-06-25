@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
+import ViewEmpty from "@/components/ui/viewEmpty";
 
 export default function InboxView() {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +28,7 @@ export default function InboxView() {
   } , [id])
 
   if (!mail) {
-    return <p>select a msg to open clicked {id}</p>;
+    return (<ViewEmpty/>)
   }
 
   return (

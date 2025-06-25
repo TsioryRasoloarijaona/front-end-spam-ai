@@ -2,10 +2,9 @@ import { useState } from "react";
 import { LuInbox } from "react-icons/lu";
 import { IoSendOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { RiDraftLine } from "react-icons/ri";
-import { FaRegFolder } from "react-icons/fa6";
-import { CiUser } from "react-icons/ci";
+
 import { Link } from "react-router";
+import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 import {
   Sidebar,
@@ -26,35 +25,47 @@ interface Menu {
 }
 
 const AppSideBar: React.FC = () => {
+  const { email } = useEmailAddressStore();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const menuList: Menu[] = [
-    { link: "/dash/inbox/2", name: "Inbox", icon: <LuInbox />, number: 15 },
-    { link: "/dash/sent", name: "Sent", icon: <IoSendOutline />, number: null },
+    { link: "/dash/inbox/0", name: "Inbox", icon: <LuInbox />, number: null },
     {
-      link: "/dash/spam",
-      name: "Spam",
-      icon: <RiDeleteBin6Line />,
-      number: 26,
+      link: "/dash/sent/0",
+      name: "Sent",
+      icon: <IoSendOutline />,
+      number: null,
     },
-    { link: "/dash/draft", name: "Draft", icon: <RiDraftLine />, number: 37 },
-    { link: "/dash/folder", name: "Folder", icon: <FaRegFolder />, number: 0 },
     {
-      link: "/dash/trash",
-      name: "Trash",
+      link: "/dash/spam/0",
+      name: "Spam",
       icon: <RiDeleteBin6Line />,
       number: null,
     },
-    { link: "/dash/trash", name: "profile", icon: <CiUser />, number: null },
   ];
 
   return (
     <Sidebar collapsible="icon" className="bg-[#EEF0F2]">
       <SidebarContent className="bg-white">
         <SidebarGroup>
-          <SidebarGroupLabel className="mb-7 text-xl text-black font-bold">
-            Action menu
-          </SidebarGroupLabel>
+          <div className="flex items-center gap-1 mb-7 mt-3">
+            <div
+              className="w-8 h-8 flex items-center justify-center rounded-full text-white font-bold text-base"
+              style={{
+                backgroundColor: `#${Math.floor(
+                  (email?.charCodeAt(0) || 0) * 999999
+                )
+                  .toString(16)
+                  .padStart(6, "0")
+                  .slice(0, 6)}`,
+              }}
+            >
+              {email ? email[0] : "?"}
+            </div>
+            <SidebarGroupLabel className="text-base text-black font-semibold">
+              {email ? email : "No Email Selected"}
+            </SidebarGroupLabel>
+          </div>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2">
               {menuList.map((menu, i) => (
