@@ -9,7 +9,6 @@ import { postMethod } from "@/utils/fecthing";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { BeatLoader } from "react-spinners";
-import { FaWandMagicSparkles } from "react-icons/fa6";
 import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
 export default function TextEditor({
@@ -126,17 +125,7 @@ export default function TextEditor({
           <Button type="submit" disabled={!buttonSate}>
             {buttonSate ? "send" : <BeatLoader color="#ffffff" size={5} />}
           </Button>
-          <button
-            type="button"
-            className="gap-2 p-2 bg-white border rounded shadow"
-          >
-            <FaWandMagicSparkles className="text-purple-600" />
-            <select className="bg-transparent outline-none">
-              <option value=""></option>
-              <option value="magic1">Magic Option 1</option>
-              <option value="magic2">Magic Option 2</option>
-            </select>
-          </button>
+          
         </div>
       </form>
     </>
