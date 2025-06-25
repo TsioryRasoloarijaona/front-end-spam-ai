@@ -62,7 +62,7 @@ export default function SignIn() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen bg-white px-4">
-      <ThemeButton/>
+      
       <div className="flex flex-col justify-center items-center gap-8 w-full max-w-md md:w-1/2">
         <DotLottieReact
           src="message.lottie"
