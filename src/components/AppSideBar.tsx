@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LuInbox } from "react-icons/lu";
 import { IoSendOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { CiUser } from "react-icons/ci";
+
 import { Link } from "react-router";
 import { useEmailAddressStore } from "@/hooks/emailAddressStore";
 
