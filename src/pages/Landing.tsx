@@ -543,32 +543,32 @@ export default function MailyLandingPage() {
 function TourGuide() {
   const steps = [
     {
-      img: "public/image-1750608573371.png",
+      img: "/image-1750608573371.png",
       title: "Bienvenue dans Maily",
       desc: "Creez un compte gratuit pour commencer à utiliser Maily. Vous pouvez vous connecter avec domaine professionnel maily.tech."
     },
     {
-      img: "/public/c0nnect to your account.jpg",
+      img: "/c0nnect to your account.jpg",
       title: "Connectez-vous à votre compte",
       desc: "Accédez à vos e-mails personnels, professionnels ou scolaires dans l'application Maily sur ordinateur, y compris maily.tech et bien plus."
     },
      {
-      img: "public/screen.png",
+      img: "/screen.png",
       title: "Ecrire un e-mail efficacement",
       desc: "Rédigez des e-mails professionnels en quelques clics. Utilisez des modèles, des signatures personnalisées et des réponses automatiques pour gagner du temps."
     },
     {
-      img: "public/imbox of email.jpg",
+      img: "/imbox of email.jpg",
       title: "Imbox intelligente",
       desc: "Retrouvez tout ce dont vous avez besoin pour organiser votre journée en un seul endroit. Gérez facilement vos e-mails, spam,  et contacts , à la maison ou en déplacement."
     },
     {
-      img: "public/parler en groupe sous le meme domain.jpg",
+      img: "/parler en groupe sous le meme domain.jpg",
       title: "Communiquer en groupe",
       desc: "Créez des groupes de discussion pour communiquer facilement avec vos collègues, amis ou famille. Partagez des informations et collaborez efficacement."
     },
     {
-      img: "public/image.png",
+      img: "/image.png",
       title: "Traducteur intégré",
       desc: "Utilisez le traducteur intégré pour traduire vos e-mails dans la langue de votre choix. Maily prend en charge plusieurs langues pour faciliter la communication internationale."
     }
